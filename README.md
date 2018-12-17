@@ -1,1 +1,0 @@
-# minsu-ng-egg
