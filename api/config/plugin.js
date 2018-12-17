@@ -8,3 +8,9 @@ exports.sequelize = {
     enable: true,
     package: 'egg-sequelize',
 };
+
+// 支持跨域
+exports.cors = {
+    enable: true,
+    package: 'egg-cors',
+};

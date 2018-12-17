@@ -10,4 +10,5 @@ module.exports = app => {
   } = app;
   router.get('/', controller.home.index);
   router.get('/login', controller.passport.login);
+  router.get('/order/list', controller.order.list);
 };

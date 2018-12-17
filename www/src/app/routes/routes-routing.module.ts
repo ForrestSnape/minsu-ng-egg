@@ -37,6 +37,8 @@ const routes: Routes = [
       { path: 'map', loadChildren: './map/map.module#MapModule' },
       { path: 'chart', loadChildren: './chart/chart.module#ChartModule' },
       { path: 'other', loadChildren: './other/other.module#OtherModule' },
+      { path: 'room', loadChildren: './room/room.module#RoomModule' },
+      { path: 'order', loadChildren: './order/order.module#OrderModule' },
     ],
   },
   // passport

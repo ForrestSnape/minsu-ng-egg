@@ -9,6 +9,19 @@ module.exports = appInfo => {
   // add your config here
   config.middleware = [];
 
+  //支持跨域
+  config.security = {
+    csrf: {
+        enable: false,
+        ignoreJSON: true,
+    },
+    domainWhiteList: ['*']
+  };
+  config.cors = {
+      origin:'*',
+      allowMethods: 'GET,HEAD,PUT,POST,DELETE,PATCH,OPTIONS',
+  };
+
   // 盐
   config.salt = 'jfdosa$4dklsa3@E!';
 
