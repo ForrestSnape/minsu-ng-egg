@@ -35,6 +35,7 @@ class OrderService extends Service {
             where: condition,
             offset: offset,
             limit: limit,
+            order: [['begin','DESC']],
             include: [{
                     model: ctx.model.Room,
                     attributes: ['id', 'name']
@@ -45,15 +46,22 @@ class OrderService extends Service {
                 },
             ]
         });
+        orders = orders.map(item => {
+            item.begin = parseInt(item.begin) * 1000;
+            item.end = parseInt(item.end) * 1000;
+            return item;
+        });
         let total = await ctx.model.Order.count({
             where: condition
-        })
+        });
 
         return {
             orders: orders,
             total: total
         };
     }
+
+    // 判断订单的状态
 
 }
 module.exports = OrderService;
