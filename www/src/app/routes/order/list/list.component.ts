@@ -2,6 +2,7 @@ import { Component, ChangeDetectionStrategy, ViewChild, ChangeDetectorRef } from
 import { NzMessageService } from 'ng-zorro-antd';
 import { STComponent, STColumn, STChange, STPage, STData } from '@delon/abc';
 import { _HttpClient } from '@delon/theme';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-order-list',
@@ -38,7 +39,7 @@ export class OrderListComponent {
       buttons: [
         {
           text: '查看',
-          click: (item: any) => this.msg.success(`查看${item.id}`),
+          click: (item: any) => this.router.navigateByUrl(`/order/detail/${item.id}`),
         },
         {
           text: '编辑',
@@ -73,7 +74,8 @@ export class OrderListComponent {
   constructor(
     private http: _HttpClient,
     public msg: NzMessageService,
-    private cd: ChangeDetectorRef
+    private cd: ChangeDetectorRef,
+    private router:Router
   ) { }
 
   ngOnInit() {
@@ -90,8 +92,10 @@ export class OrderListComponent {
   getRooms() {
     this.http.get('http://localhost:7001/room/list')
       .subscribe((res: any) => {
-        this.rooms = res.data;
-        this.cd.detectChanges();
+        if (res.code === 0) {
+          this.rooms = res.data;
+          this.cd.detectChanges();
+        }
       });
   }
 
@@ -102,8 +106,10 @@ export class OrderListComponent {
   getPlatforms() {
     this.http.get('http://localhost:7001/platform/list')
       .subscribe((res: any) => {
-        this.platforms = res.data;
-        this.cd.detectChanges();
+        if (res.code === 0) {
+          this.platforms = res.data;
+          this.cd.detectChanges();
+        }
       });
   }
 
@@ -114,10 +120,12 @@ export class OrderListComponent {
   getOrders() {
     this.http.get('http://localhost:7001/order/list', { pi: this.pi, ps: this.ps, begin: this.begin, end: this.end, room_id: this.room_id, platform_id: this.platform_id })
       .subscribe((res: any) => {
-        this.orders = res.data.orders;
-        this.total = res.data.total;
-        this.cd.detectChanges();
-        this.loading = false;
+        if (res.code === 0) {
+          this.orders = res.data.orders;
+          this.total = res.data.total;
+          this.cd.detectChanges();
+          this.loading = false;
+        }
       });
   }
 

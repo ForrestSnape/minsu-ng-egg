@@ -13,4 +13,5 @@ module.exports = app => {
   router.get('/room/list', controller.room.list);
   router.get('/platform/list', controller.platform.list);
   router.get('/order/list', controller.order.list);
+  router.get('/order/detail', controller.order.detail);
 };

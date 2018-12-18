@@ -6,12 +6,7 @@ class OrderService extends Service {
     // 获取订单列表
     async list(params) {
         const ctx = this.ctx;
-        ctx.model.Order.belongsTo(ctx.model.Room, {
-            foreignKey: 'room_id'
-        });
-        ctx.model.Order.belongsTo(ctx.model.Platform, {
-            foreignKey: 'platform_id'
-        });
+
         // 查询条件
         let condition = {};
         if (params.begin > 0) condition.begin = {
@@ -35,7 +30,9 @@ class OrderService extends Service {
             where: condition,
             offset: offset,
             limit: limit,
-            order: [['begin','DESC']],
+            order: [
+                ['begin', 'DESC']
+            ],
             include: [{
                     model: ctx.model.Room,
                     attributes: ['id', 'name']
@@ -61,7 +58,52 @@ class OrderService extends Service {
         };
     }
 
-    // 判断订单的状态
+    // 获取订单详情
+    async detail(params) {
+        const ctx = this.ctx;
+
+        // 查询条件
+        let condition = {
+            id: {
+                $eq: params.order_id
+            }
+        };
+
+        let order = await ctx.model.Order.findOne({
+            where: condition,
+            include: [{
+                    model: ctx.model.Room,
+                    attributes: ['id', 'name']
+                },
+                {
+                    model: ctx.model.Platform,
+                    attributes: ['id', 'name']
+                },
+                {
+                    model: ctx.model.OrderDatePrice,
+                    attributes: ['begin', 'end', 'price']
+                },
+                {
+                    model: ctx.model.Comment,
+                    attributes: ['star', 'comment', 'comment_time']
+                },
+            ]
+        });
+
+        // 时间转毫秒级
+        order.begin = parseInt(order.begin) * 1000;
+        order.end = parseInt(order.end) * 1000;
+        order.order_date_prices = order.order_date_prices.map(item => {
+            item.begin = parseInt(item.begin) * 1000;
+            item.end = parseInt(item.end) * 1000;
+            return item;
+        });
+        if(order.comment){
+            order.comment.comment_time = parseInt(order.comment.comment_time) * 1000;
+        }
+
+        return order;
+    }
 
 }
 module.exports = OrderService;

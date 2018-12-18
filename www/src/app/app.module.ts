@@ -2,6 +2,12 @@ import { NgModule, LOCALE_ID, APP_INITIALIZER } from '@angular/core';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { IconDefinition } from '@ant-design/icons-angular';
+import { NgZorroAntdModule, NZ_ICON_DEFAULT_TWOTONE_COLOR, NZ_ICONS } from 'ng-zorro-antd';
+
+// 引入你需要的图标，比如你需要 fill 主题的 AccountBook Alert 和 outline 主题的 Alert，推荐 ✔️
+import { StarOutline, StarTwoTone } from '@ant-design/icons-angular/icons';
+const icons: IconDefinition[] = [StarOutline, StarTwoTone];
 
 // #region default language
 // 参考：https://ng-alain.com/docs/i18n
@@ -91,6 +97,12 @@ const APPINIT_PROVIDES = [
 ];
 // #endregion
 
+// icon providers
+const ICON_PROVIDES = [
+  { provide: NZ_ICONS, useValue: icons }
+];
+// #end icon providers
+
 import { DelonModule } from './delon.module';
 import { CoreModule } from './core/core.module';
 import { SharedModule } from './shared/shared.module';
@@ -109,6 +121,7 @@ import { LayoutModule } from './layout/layout.module';
     SharedModule,
     LayoutModule,
     RoutesModule,
+    NgZorroAntdModule,
     ...I18NSERVICE_MODULES,
     ...GLOBAL_THIRD_MODULES,
     ...FORM_MODULES,
@@ -118,7 +131,8 @@ import { LayoutModule } from './layout/layout.module';
     ...INTERCEPTOR_PROVIDES,
     ...I18NSERVICE_PROVIDES,
     ...APPINIT_PROVIDES,
+    ...ICON_PROVIDES
   ],
   bootstrap: [AppComponent],
 })
-export class AppModule {}
+export class AppModule { }

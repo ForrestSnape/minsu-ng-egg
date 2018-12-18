@@ -3,24 +3,25 @@
 module.exports = app => {
     const {
         INTEGER,
-        DECIMAL
+        TEXT
     } = app.Sequelize;
 
-    const OrderDatePrice = app.model.define('order_date_price', {
+    const Comment = app.model.define('comment', {
         id: {
             type: INTEGER,
             primaryKey: true,
             autoIncrement: true,
         },
+        room_id: INTEGER,
         order_id: INTEGER,
-        begin: INTEGER,
-        end: INTEGER,
-        price: DECIMAL(10, 2)
+        star: INTEGER(2),
+        comment: TEXT,
+        comment_time: INTEGER
     }, {
-        tableName: 'minsu_order_date_price',
+        tableName: 'minsu_comment',
         freezeTableName: true,
         timestamps: false,
     });
 
-    return OrderDatePrice;
+    return Comment;
 };
