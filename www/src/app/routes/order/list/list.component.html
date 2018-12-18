@@ -16,6 +16,8 @@
       <button nz-button nzType="primary" (click)="doSearch()">查询订单</button>
       &nbsp;
       <button nz-button nzType="default" (click)="doReset()">重置</button>
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+      <button nz-button nzType="default" (click)="addOrder()"><i nz-icon [type]="'plus-circle'" [theme]="'outline'"></i>添加订单</button>
     </div>
     <st #st [data]="orders" [columns]="columns" [loading]="loading" [page]="page" [pi]="pi" [ps]="ps" [total]="total"
       (change)="_click($event)">

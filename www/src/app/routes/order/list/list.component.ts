@@ -5,7 +5,7 @@ import { _HttpClient } from '@delon/theme';
 import { Router } from '@angular/router';
 
 @Component({
-  selector: 'app-order-list',
+  selector: 'order-list',
   templateUrl: './list.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
@@ -75,7 +75,7 @@ export class OrderListComponent {
     private http: _HttpClient,
     public msg: NzMessageService,
     private cd: ChangeDetectorRef,
-    private router:Router
+    private router: Router
   ) { }
 
   ngOnInit() {
@@ -157,6 +157,10 @@ export class OrderListComponent {
     let end: number;
     this.end = end;
     this.getOrders();
+  }
+
+  addOrder() {
+    this.router.navigateByUrl(`/order/add`);
   }
 
 }

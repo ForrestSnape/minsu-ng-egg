@@ -14,4 +14,5 @@ module.exports = app => {
   router.get('/platform/list', controller.platform.list);
   router.get('/order/list', controller.order.list);
   router.get('/order/detail', controller.order.detail);
+  router.post('/order/add', controller.order.add);
 };

@@ -17,6 +17,7 @@ import { DelonAuthModule } from '@delon/auth';
 import { DelonACLModule } from '@delon/acl';
 import { DelonCacheModule } from '@delon/cache';
 import { DelonUtilModule } from '@delon/util';
+import { DelonFormModule } from '@delon/form';
 
 // #region mock
 import { DelonMockModule } from '@delon/mock';
@@ -88,6 +89,7 @@ const GLOBAL_CONFIG_PROVIDES = [
     DelonACLModule.forRoot(),
     DelonCacheModule.forRoot(),
     DelonUtilModule.forRoot(),
+    DelonFormModule.forRoot(),
     // mock
     ...MOCK_MODULES,
   ],

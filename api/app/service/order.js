@@ -98,11 +98,26 @@ class OrderService extends Service {
             item.end = parseInt(item.end) * 1000;
             return item;
         });
-        if(order.comment){
+        if (order.comment) {
             order.comment.comment_time = parseInt(order.comment.comment_time) * 1000;
         }
 
         return order;
+    }
+
+    // 添加订单
+    async add(params) {
+        const ctx = this.ctx;
+        let order = await ctx.model.Order.create(params);
+        // 添加订单成功 添加date_price表数据
+        if (order.id > 0) {
+            await ctx.model.OrderDatePrice.bulkCreate(params.date_price.map(item => {
+                item['order_id'] = order.id;
+                return item;
+            }));
+            return true;
+        }
+        return false;
     }
 
 }

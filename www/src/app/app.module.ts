@@ -6,8 +6,8 @@ import { IconDefinition } from '@ant-design/icons-angular';
 import { NgZorroAntdModule, NZ_ICON_DEFAULT_TWOTONE_COLOR, NZ_ICONS } from 'ng-zorro-antd';
 
 // 引入你需要的图标，比如你需要 fill 主题的 AccountBook Alert 和 outline 主题的 Alert，推荐 ✔️
-import { StarOutline, StarTwoTone } from '@ant-design/icons-angular/icons';
-const icons: IconDefinition[] = [StarOutline, StarTwoTone];
+import { StarOutline, StarTwoTone, PlusCircleOutline } from '@ant-design/icons-angular/icons';
+const icons: IconDefinition[] = [StarOutline, StarTwoTone, PlusCircleOutline];
 
 // #region default language
 // 参考：https://ng-alain.com/docs/i18n

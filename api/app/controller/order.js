@@ -33,6 +33,17 @@ class OrderController extends Controller {
         };
         ctx.status = 200;
     }
+
+    // 添加订单
+    async add(){
+        const ctx = this.ctx;
+        const res = await ctx.service.order.add(ctx.request.body);
+        ctx.body = {
+            code: 0,
+            data: res
+        };
+        ctx.status = 200;
+    }
 }
 
 module.exports = OrderController;

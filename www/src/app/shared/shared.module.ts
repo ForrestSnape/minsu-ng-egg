@@ -35,6 +35,7 @@ import { MasonryDirective } from './components/masonry/masonry.directive';
 import { ScrollbarDirective } from './components/scrollbar/scrollbar.directive';
 import { FileManagerComponent } from './components/file-manager/file-manager.component';
 import { PRO_SHARED_COMPONENTS } from '../layout/pro';
+import { FunctionService } from './service/function.service';
 const COMPONENTS_ENTRY = [
   LangsComponent,
   ImgComponent,
@@ -47,6 +48,10 @@ const COMPONENTS = [
 ];
 const DIRECTIVES = [ ImgDirective, DelayDirective, MasonryDirective, ScrollbarDirective ];
 // #endregion
+
+// shared service
+// import {FunctionService} from './service/function.service';
+// #end shared service
 
 @NgModule({
   imports: [
@@ -68,6 +73,10 @@ const DIRECTIVES = [ ImgDirective, DelayDirective, MasonryDirective, ScrollbarDi
     ...DIRECTIVES,
   ],
   entryComponents: COMPONENTS_ENTRY,
+  providers: [
+    // shared service
+    FunctionService
+  ],
   exports: [
     CommonModule,
     FormsModule,
