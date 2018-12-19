@@ -1,5 +1,7 @@
 <page-grid>
   <nz-card [nzBordered]="false">
+    <button nz-button nzType="primary" (click)="backToList()">返回列表</button>
+    <nz-divider></nz-divider>
     <form nz-form [formGroup]="form" (ngSubmit)="submit(form)" se-container="1" labelWidth="200">
       <se label="房间" error="请选择房间" required>
         <nz-select style="width: 332px" formControlName="room_id" nzShowSearch nzPlaceHolder="全部房间" [(ngModel)]="room_id">

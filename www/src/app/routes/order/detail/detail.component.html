@@ -1,5 +1,7 @@
 <page-grid>
   <nz-card [nzBordered]="false" *ngIf="order" [nzLoading]="loading">
+    <button nz-button nzType="primary" (click)="backToList()">返回列表</button>
+    <nz-divider></nz-divider>
     <sv-container size="large" title="订单信息">
       <sv label="日期">{{order.begin | date:"yyyy-MM-dd"}} 到 {{order.end | date:"yyyy-MM-dd"}}</sv>
       <sv label="天数">{{order.days}}</sv>

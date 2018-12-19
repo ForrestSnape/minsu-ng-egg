@@ -20,7 +20,7 @@ export class OrderListComponent {
   // 加载样式
   loading: boolean = true;
   // 当前页数
-  pi: number = 1;
+  pi: number = Number(localStorage.getItem('order_list_pi')) > 0 ? Number(localStorage.getItem('order_list_pi')) : 1;
   // 每页条数
   ps: number = 12;
   // 表格字段
@@ -133,6 +133,8 @@ export class OrderListComponent {
     if (e.type === 'pi') {
       this.loading = true;
       this.pi = e.pi;
+      // localStorage保存当前页码
+      localStorage.setItem('order_list_pi', String(this.pi));
       this.getOrders();
     }
   }

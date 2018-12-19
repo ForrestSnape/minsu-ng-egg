@@ -1,6 +1,6 @@
 import { Component, OnInit, ChangeDetectorRef, ViewChild } from '@angular/core';
 import { _HttpClient } from '@delon/theme';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { STComponent, STData, STPage, STColumn } from '@delon/abc';
 
 @Component({
@@ -35,7 +35,8 @@ export class OrderDetailComponent implements OnInit {
   constructor(
     private http: _HttpClient,
     private ar: ActivatedRoute,
-    private cd: ChangeDetectorRef
+    private cd: ChangeDetectorRef,
+    private router:Router
   ) {
 
   }
@@ -67,6 +68,10 @@ export class OrderDetailComponent implements OnInit {
       stars.push(i <= star);
     }
     return stars;
+  }
+
+  backToList(){
+    this.router.navigateByUrl('/order/list');
   }
 
 }
