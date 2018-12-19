@@ -35,9 +35,20 @@ class OrderController extends Controller {
     }
 
     // 添加订单
-    async add(){
+    async add() {
         const ctx = this.ctx;
         const res = await ctx.service.order.add(ctx.request.body);
+        ctx.body = {
+            code: 0,
+            data: res
+        };
+        ctx.status = 200;
+    }
+
+    // 删除订单
+    async delete() {
+        const ctx = this.ctx;
+        const res = await ctx.service.order.delete(ctx.request.body.order_id);
         ctx.body = {
             code: 0,
             data: res

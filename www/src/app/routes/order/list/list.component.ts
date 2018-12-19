@@ -48,7 +48,7 @@ export class OrderListComponent {
         {
           text: '删除',
           type: 'del',
-          click: (item: any) => this.msg.success(`删除${item.id}`),
+          click: (item: any) => this.delOrder(item),
         },
       ],
     },
@@ -118,6 +118,7 @@ export class OrderListComponent {
   }
 
   getOrders() {
+    this.loading = true;
     this.http.get('http://localhost:7001/order/list', { pi: this.pi, ps: this.ps, begin: this.begin, end: this.end, room_id: this.room_id, platform_id: this.platform_id })
       .subscribe((res: any) => {
         if (res.code === 0) {
@@ -131,7 +132,6 @@ export class OrderListComponent {
 
   _click(e: STChange) {
     if (e.type === 'pi') {
-      this.loading = true;
       this.pi = e.pi;
       // localStorage保存当前页码
       localStorage.setItem('order_list_pi', String(this.pi));
@@ -140,13 +140,11 @@ export class OrderListComponent {
   }
 
   doSearch() {
-    this.loading = true;
     this.pi = 1;
     this.getOrders();
   }
 
   doReset() {
-    this.loading = true;
     this.pi = 1;
     let room_id: number;
     this.room_id = room_id;
@@ -163,6 +161,20 @@ export class OrderListComponent {
 
   addOrder() {
     this.router.navigateByUrl(`/order/add`);
+  }
+
+  delOrder(order) {
+    this.http.post('http://localhost:7001/order/delete', { order_id: order.id })
+      .subscribe((res: any) => {
+        if (res.code === 0) {
+          if (res.data) {
+            this.msg.success('删除订单成功，2秒后刷新', { nzDuration: 2000 });
+            setTimeout(() => this.getOrders(), 2500);
+          } else {
+            this.msg.warning('删除订单失败')
+          };
+        }
+      });
   }
 
 }

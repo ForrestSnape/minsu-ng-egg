@@ -15,4 +15,5 @@ module.exports = app => {
   router.get('/order/list', controller.order.list);
   router.get('/order/detail', controller.order.detail);
   router.post('/order/add', controller.order.add);
+  router.post('/order/delete', controller.order.delete);
 };

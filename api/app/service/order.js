@@ -120,5 +120,28 @@ class OrderService extends Service {
         return false;
     }
 
+    // 删除订单
+    async delete(order_id) {
+        const ctx = this.ctx;
+        let res = await ctx.model.Order.destroy({
+            where: {
+                id: {
+                    $eq: order_id
+                }
+            }
+        });
+        if (res) {
+            let ress = await ctx.model.OrderDatePrice.destroy({
+                where: {
+                    order_id: {
+                        $eq: order_id
+                    }
+                }
+            });
+            return true;
+        }
+        return false;
+    }
+
 }
 module.exports = OrderService;
