@@ -31,7 +31,7 @@ export class OrderListComponent {
   @ViewChild('st')
   private st: STComponent;
   // 表格数据
-  orders: STData[] = [];
+  orders: STData[];
   // 总条数
   total: number = 0;
   // 加载样式

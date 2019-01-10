@@ -9,8 +9,8 @@ const routes: Routes = [
   { path: '', redirectTo: 'list', pathMatch: 'full' },
   { path: 'list', component: OrderListComponent },
   { path: 'add', component: OrderAddComponent },
-  { path: 'edit/:order_id', component: OrderEditComponent },
-  { path: 'detail/:order_id', component: OrderDetailComponent }];
+  { path: 'edit/:id', component: OrderEditComponent },
+  { path: 'detail/:id', component: OrderDetailComponent }];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],

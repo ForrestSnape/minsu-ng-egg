@@ -1,1 +1,36 @@
-<page-header></page-header>
+<page-header-wrapper [title]="null" [breadcrumb]="breadcrumb">
+  <nz-card [nzBordered]="false" *ngIf="order" [nzLoading]="loading">
+    <sv-container size="large" title="订单信息">
+      <sv label="日期">{{order.begin | date:"yyyy-MM-dd"}} 到 {{order.end | date:"yyyy-MM-dd"}}</sv>
+      <sv label="天数">{{order.days}}</sv>
+      <sv label="房间">{{order.room.name}}</sv>
+      <sv label="平台">{{order.platform.name}}</sv>
+      <sv label="总价">{{order.total| currency:"CNY"}}</sv>
+      <sv label="扣除">{{order.deduct| currency:"CNY"}}</sv>
+      <sv label="利润">{{order.profit| currency:"CNY"}}</sv>
+    </sv-container>
+    <nz-divider></nz-divider>
+    <sv-container *ngIf="order.comment" size="large" col="1" title="住客评论">
+      <sv label="星级">
+        <span *ngFor="let star of stars">
+          <i *ngIf="star" nz-icon [type]="'star'" [theme]="'twotone'" [twoToneColor]="'#FFD701'"></i>
+          <i *ngIf="!star" nz-icon [type]="'star'" [theme]="'outline'"></i>
+        </span>
+      </sv>
+      <sv label="日期">{{order.comment.comment_time | date:"yyyy-MM-dd"}} 来自 {{order.platform.name}}</sv>
+      <sv label="点评">{{order.comment.comment}}</sv>
+    </sv-container>
+    <nz-divider *ngIf="order.comment"></nz-divider>
+    <sv-container *ngIf="order_date_price" size="large" title="日期-金额">
+      <st #st [data]="order_date_price" [columns]="columns" [loading]="loading" [page]="page"></st>
+    </sv-container>
+  </nz-card>
+</page-header-wrapper>
+<ng-template #breadcrumb>
+  <nz-breadcrumb>
+    <nz-breadcrumb-item><a [routerLink]="''">首页</a></nz-breadcrumb-item>
+    <nz-breadcrumb-item><a [routerLink]="'/order'">订单</a></nz-breadcrumb-item>
+    <nz-breadcrumb-item><a [routerLink]="'/order'">订单管理</a></nz-breadcrumb-item>
+    <nz-breadcrumb-item>订单详情</nz-breadcrumb-item>
+  </nz-breadcrumb>
+</ng-template>

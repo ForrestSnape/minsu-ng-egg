@@ -41,7 +41,9 @@ export class ApiConfig {
             // 订单相关
             order: {
                 list: this.apiAddr + '/order/list',
+                detail: this.apiAddr + '/order/detail',
                 add: this.apiAddr + '/order/add',
+                edit: this.apiAddr + '/order/edit',
                 del: this.apiAddr + '/order/del',
                 batch: this.apiAddr + '/order/batch',
             },

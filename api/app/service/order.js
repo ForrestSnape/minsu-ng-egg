@@ -67,16 +67,10 @@ class OrderService extends Service {
     // 获取订单详情
     async detail(params) {
         const ctx = this.ctx;
-
-        // 查询条件
-        let condition = {
-            id: {
-                $eq: params.order_id
-            }
-        };
-
         let order = await ctx.model.Order.findOne({
-            where: condition,
+            where: {
+                id: params.id
+            },
             include: [{
                     model: ctx.model.Room,
                     attributes: ['id', 'name']
@@ -126,6 +120,42 @@ class OrderService extends Service {
                         transaction: t
                     })
                 })
+        }).then(res => {
+            return true;
+        }).catch(err => {
+            throw (err)
+        })
+    }
+
+    // 编辑订单
+    async edit(params) {
+        const ctx = this.ctx;
+        return await ctx.model.transaction(t => {
+            // 修改订单表
+            return ctx.model.Order.update(params, {
+                where: {
+                    id: params.id
+                }
+            }, {
+                transaction: t
+            }).then(res => {
+                // 删除订单-日期-金额表数据
+                return ctx.model.OrderDatePrice.destroy({
+                    where: {
+                        order_id: params.id
+                    }
+                })
+            }, {
+                transaction: t
+            }).then(res => {
+                // 重建订单-日期-金额表数据
+                return ctx.model.OrderDatePrice.bulkCreate(params.date_price.map(item => {
+                    item.order_id = params.id;
+                    return item;
+                }), {
+                    transaction: t
+                })
+            })
         }).then(res => {
             return true;
         }).catch(err => {

@@ -17,9 +17,7 @@ class OrderController extends Controller {
     // 订单详情
     async detail() {
         const ctx = this.ctx;
-        const res = await ctx.service.order.detail({
-            order_id: ctx.query.order_id,
-        });
+        const res = await ctx.service.order.detail(ctx.query);
         ctx.body = {
             code: 0,
             data: res
@@ -31,6 +29,17 @@ class OrderController extends Controller {
     async add() {
         const ctx = this.ctx;
         const res = await ctx.service.order.add(ctx.request.body);
+        ctx.body = {
+            code: 0,
+            data: res
+        };
+        ctx.status = 200;
+    }
+
+    // 编辑订单
+    async edit() {
+        const ctx = this.ctx;
+        const res = await ctx.service.order.edit(ctx.request.body);
         ctx.body = {
             code: 0,
             data: res

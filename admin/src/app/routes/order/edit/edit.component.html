@@ -1,1 +1,46 @@
-<page-header></page-header>
+<page-header-wrapper [title]="null" [breadcrumb]="breadcrumb">
+  <nz-card [nzBordered]="false">
+    <form nz-form [formGroup]="form" (ngSubmit)="submit(form)" se-container="1">
+      <se label="房间" error="请选择房间" required>
+        <nz-select style="width: 332px" formControlName="room_id" nzShowSearch nzPlaceHolder="全部房间" [(ngModel)]="room_id">
+          <nz-option *ngFor="let room of rooms" nzLabel="{{room.name}}" nzValue="{{room.id}}"></nz-option>
+        </nz-select>
+      </se>
+      <se label="平台" error="请选择平台" required>
+        <nz-select style="width: 332px" formControlName="platform_id" nzShowSearch nzPlaceHolder="全部平台" [(ngModel)]="platform_id">
+          <nz-option *ngFor="let platform of platforms" nzLabel="{{platform.name}}" nzValue="{{platform.id}}"></nz-option>
+        </nz-select>
+      </se>
+      <se label="日期" error="请选择日期" required>
+        <nz-range-picker formControlName="date_range" [(ngModel)]="date_range" (ngModelChange)="selectDate($event)"></nz-range-picker>
+      </se>
+      <se *ngFor="let date of dates; let i = index" label="{{date}}" error="请填写当日金额" required>
+        <input type="number" nz-input style="width: 332px" formControlName="date_price_{{i}}" placeholder="当日金额"
+          [(ngModel)]="date_price[i].price" (ngModelChange)="datePriceChange()" required>
+      </se>
+      <se *ngIf="dates.length > 0" label="总价" error="请填写总价" required>
+        <input type="number" nz-input style="width: 332px" formControlName="total" [(ngModel)]="total" placeholder="订单总价"
+          (ngModelChange)="totalPriceChange()" required>
+      </se>
+      <se *ngIf="dates.length > 0" label="平台扣除" error="请填写平台扣除费用" required>
+        <input type="number" nz-input style="width: 332px" formControlName="deduct" [(ngModel)]="deduct" placeholder="平台扣除"
+          (ngModelChange)="deductPriceChange()" required>
+      </se>
+      <se *ngIf="dates.length > 0" label="利润" error="请填写利润" required>
+        <input type="number" nz-input style="width: 332px" formControlName="profit" [(ngModel)]="profit" placeholder="订单利润"
+          required>
+      </se>
+      <se>
+        <button nz-button nzType="primary" [disabled]="form.invalid" type="submit" [nzLoading]="submitting">提交</button>
+      </se>
+    </form>
+  </nz-card>
+</page-header-wrapper>
+<ng-template #breadcrumb>
+  <nz-breadcrumb>
+    <nz-breadcrumb-item><a [routerLink]="''">首页</a></nz-breadcrumb-item>
+    <nz-breadcrumb-item><a [routerLink]="'/order'">订单</a></nz-breadcrumb-item>
+    <nz-breadcrumb-item><a [routerLink]="'/order'">订单管理</a></nz-breadcrumb-item>
+    <nz-breadcrumb-item>编辑订单</nz-breadcrumb-item>
+  </nz-breadcrumb>
+</ng-template>

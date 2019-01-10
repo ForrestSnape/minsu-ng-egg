@@ -30,6 +30,16 @@ export class MenuConfig {
                         i18n: 'menu.dashboard.analysis'
                     }]
                 }, {
+                    text: 'Order',
+                    link: '/order',
+                    i18n: 'menu.order',
+                    icon: 'anticon anticon-dollar',
+                    children: [{
+                        text: 'Order Manager',
+                        link: '/order/list',
+                        i18n: 'menu.order.manager'
+                    }]
+                }, {
                     text: 'Town Manager',
                     link: '/town',
                     i18n: 'menu.town.manager',

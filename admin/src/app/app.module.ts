@@ -6,8 +6,8 @@ import { IconDefinition } from '@ant-design/icons-angular';
 import { NZ_ICONS } from 'ng-zorro-antd';
 
 // 引入你需要的图标，比如你需要 fill 主题的 AccountBook Alert 和 outline 主题的 Alert，推荐 ✔️
-import { HomeOutline, EditOutline, EyeOutline, BookOutline, SettingOutline, UserOutline } from '@ant-design/icons-angular/icons';
-const icons: IconDefinition[] = [HomeOutline, EditOutline, EyeOutline, BookOutline, SettingOutline, UserOutline];
+import { StarOutline, StarTwoTone, HomeOutline, EditOutline, EyeOutline, BookOutline, SettingOutline, UserOutline } from '@ant-design/icons-angular/icons';
+const icons: IconDefinition[] = [StarOutline, StarTwoTone, HomeOutline, EditOutline, EyeOutline, BookOutline, SettingOutline, UserOutline];
 
 // icon providers
 const ICON_PROVIDES = [
