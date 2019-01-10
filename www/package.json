@@ -39,7 +39,7 @@
     "@delon/auth": "^2.0.0",
     "@delon/cache": "^2.0.0",
     "@delon/chart": "^2.0.0",
-    "@delon/form": "^7.0.0-rc.0",
+    "@delon/form": "^2.0.0-rc.0",
     "@delon/mock": "^2.0.0",
     "@delon/theme": "^2.0.0",
     "@delon/util": "^2.0.0",

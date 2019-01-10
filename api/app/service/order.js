@@ -6,33 +6,35 @@ class OrderService extends Service {
     // 获取订单列表
     async list(params) {
         const ctx = this.ctx;
-
         // 查询条件
-        let condition = {};
-        if (params.begin > 0) condition.begin = {
+        const where = {};
+        if (params.user_id > 0) where.user_id = {
+            $eq: params.user_id
+        };
+        if (params.begin > 0) where.begin = {
             $gte: params.begin
         };
-        if (params.end > 0) condition.end = {
+        if (params.end > 0) where.end = {
             $lte: params.end
         };
-        if (params.room_id > 0) condition.room_id = {
+        if (params.room_id > 0) where.room_id = {
             $eq: params.room_id
         };
-        if (params.platform_id > 0) condition.platform_id = {
+        if (params.platform_id > 0) where.platform_id = {
             $eq: params.platform_id
         };
-
         // 分页
-        let limit = parseInt(params.ps);
-        let offset = parseInt(params.ps * (params.pi - 1));
-
+        const limit = parseInt(params.ps);
+        const offset = parseInt(params.ps * (params.pi - 1));
+        // 排序
+        const order = [
+            [params.order_by.split(',')[0], params.order_by.split(',')[1]]
+        ];
         let orders = await ctx.model.Order.findAll({
-            where: condition,
+            where: where,
             offset: offset,
             limit: limit,
-            order: [
-                ['begin', 'DESC']
-            ],
+            order: order,
             include: [{
                     model: ctx.model.Room,
                     attributes: ['id', 'name']
@@ -43,17 +45,21 @@ class OrderService extends Service {
                 },
             ]
         });
-        orders = orders.map(item => {
-            item.begin = parseInt(item.begin) * 1000;
-            item.end = parseInt(item.end) * 1000;
-            return item;
+        const result = [];
+        orders.forEach(item => {
+            let order = item.dataValues;
+            order.begin = parseInt(item.begin) * 1000;
+            order.end = parseInt(item.end) * 1000;
+            const curtime = (new Date()).getTime();
+            result.push({ ...order,
+                status: order.end < curtime ? 1 : item.begin <= curtime && curtime <= item.end ? 2 : 3
+            });
         });
-        let total = await ctx.model.Order.count({
-            where: condition
+        const total = await ctx.model.Order.count({
+            where: where
         });
-
         return {
-            orders: orders,
+            orders: result,
             total: total
         };
     }
@@ -108,39 +114,85 @@ class OrderService extends Service {
     // 添加订单
     async add(params) {
         const ctx = this.ctx;
-        let order = await ctx.model.Order.create(params);
-        // 添加订单成功 添加date_price表数据
-        if (order.id > 0) {
-            await ctx.model.OrderDatePrice.bulkCreate(params.date_price.map(item => {
-                item['order_id'] = order.id;
-                return item;
-            }));
+        return await ctx.model.transaction(t => {
+            return ctx.model.Order.create(params, {
+                    transaction: t
+                })
+                .then(order => {
+                    return ctx.model.OrderDatePrice.bulkCreate(params.date_price.map(item => {
+                        item.order_id = order.id;
+                        return item;
+                    }), {
+                        transaction: t
+                    })
+                })
+        }).then(res => {
             return true;
-        }
-        return false;
+        }).catch(err => {
+            throw (err)
+        })
     }
 
     // 删除订单
-    async delete(order_id) {
+    async delete(params) {
         const ctx = this.ctx;
-        let res = await ctx.model.Order.destroy({
-            where: {
-                id: {
-                    $eq: order_id
-                }
-            }
-        });
-        if (res) {
-            let ress = await ctx.model.OrderDatePrice.destroy({
-                where: {
-                    order_id: {
-                        $eq: order_id
+        return await ctx.model.transaction(t => {
+            return ctx.model.Order.destroy({
+                    where: {
+                        id: params.id
                     }
-                }
-            });
+                }, {
+                    transaction: t
+                })
+                .then(res => {
+                    return ctx.model.OrderDatePrice.destroy({
+                        where: {
+                            order_id: params.id
+                        }
+                    })
+                }, {
+                    transaction: t
+                })
+        }).then(res => {
             return true;
+        }).catch(err => {
+            throw (err)
+        })
+    }
+
+    // 批量操作
+    async batch(params) {
+        const ctx = this.ctx;
+        switch (params.type) {
+            // 批量删除
+            case 1:
+                return await ctx.model.transaction(t => {
+                    return ctx.model.Order.destroy({
+                            where: {
+                                id: {
+                                    $in: params.ids
+                                }
+                            }
+                        }, {
+                            transaction: t
+                        })
+                        .then(res => {
+                            return ctx.model.OrderDatePrice.destroy({
+                                where: {
+                                    order_id: {
+                                        $in: params.ids
+                                    }
+                                }
+                            })
+                        }, {
+                            transaction: t
+                        })
+                }).then(res => {
+                    return true;
+                }).catch(err => {
+                    throw (err)
+                })
         }
-        return false;
     }
 
 }

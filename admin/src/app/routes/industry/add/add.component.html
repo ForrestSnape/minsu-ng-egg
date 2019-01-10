@@ -1,0 +1,29 @@
+<page-header-wrapper [title]="null" [breadcrumb]="breadcrumb">
+  <nz-card [nzBordered]="false">
+    <form nz-form [formGroup]="form" (ngSubmit)="submit(form)" se-container="1" style="width: 50%;">
+      <se label="产业名称" error="请输入产业名称" required>
+        <input nz-input formControlName="industry_name" placeholder="产业名称">
+      </se>
+      <se label="产业排序" error="请输入数字格式的产业排序" required>
+        <nz-input-number formControlName="sort" [nzMin]="0" [nzStep]="1"></nz-input-number>
+      </se>
+      <se label="是否启用" required>
+        <nz-radio-group formControlName="is_use">
+          <label nz-radio [nzValue]="1">启用</label>
+          <label nz-radio [nzValue]="0">禁用</label>
+        </nz-radio-group>
+      </se>
+      <se>
+        <button nz-button nzType="primary" [disabled]="form.invalid" type="submit" [nzLoading]="submitting">提交</button>
+      </se>
+    </form>
+  </nz-card>
+</page-header-wrapper>
+<ng-template #breadcrumb>
+  <nz-breadcrumb>
+    <nz-breadcrumb-item><a [routerLink]="''">首页</a></nz-breadcrumb-item>
+    <nz-breadcrumb-item><a [routerLink]="'/town'">小镇</a></nz-breadcrumb-item>
+    <nz-breadcrumb-item><a [routerLink]="'/industry'">产业管理</a></nz-breadcrumb-item>
+    <nz-breadcrumb-item>添加产业</nz-breadcrumb-item>
+  </nz-breadcrumb>
+</ng-template>

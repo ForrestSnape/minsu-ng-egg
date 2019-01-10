@@ -43,7 +43,7 @@ export class OrderListComponent {
         },
         {
           text: '编辑',
-          click: (item: any) => this.msg.success(`编辑${item.id}`),
+          click: (item: any) => this.router.navigateByUrl(`/order/edit/${item.id}`),
         },
         {
           text: '删除',

@@ -145,8 +145,4 @@ export class OrderAddComponent implements OnInit {
       });
   }
 
-  backToList() {
-    this.router.navigateByUrl('/order/list');
-  }
-
 }

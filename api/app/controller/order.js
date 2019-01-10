@@ -6,14 +6,7 @@ class OrderController extends Controller {
     // 订单列表
     async list() {
         const ctx = this.ctx;
-        const res = await ctx.service.order.list({
-            pi: ctx.query.pi,
-            ps: ctx.query.ps,
-            begin: ctx.query.begin,
-            end: ctx.query.end,
-            room_id: ctx.query.room_id,
-            platform_id: ctx.query.platform_id
-        });
+        const res = await ctx.service.order.list(ctx.query);
         ctx.body = {
             code: 0,
             data: res
@@ -48,7 +41,18 @@ class OrderController extends Controller {
     // 删除订单
     async delete() {
         const ctx = this.ctx;
-        const res = await ctx.service.order.delete(ctx.request.body.order_id);
+        const res = await ctx.service.order.delete(ctx.query);
+        ctx.body = {
+            code: 0,
+            data: res
+        };
+        ctx.status = 200;
+    }
+
+    // 批量操作
+    async batch() {
+        const ctx = this.ctx;
+        const res = await ctx.service.order.batch(ctx.request.body);
         ctx.body = {
             code: 0,
             data: res

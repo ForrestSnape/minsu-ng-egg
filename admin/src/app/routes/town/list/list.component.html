@@ -1,0 +1,41 @@
+<page-header-wrapper [title]="null" [breadcrumb]="breadcrumb">
+  <nz-card>
+    <div class="d-flex align-items-center mb-md">
+      <nz-select style="width: 200px" nzShowSearch nzPlaceHolder="所在城市" [(ngModel)]="city_id">
+        <nz-option *ngFor="let city of citys" nzLabel="{{city.city_name}}" nzValue="{{city.city_name}}"></nz-option>
+      </nz-select>
+      &nbsp;&nbsp;
+      <nz-input-group style="width: 300px;" nzSearch [nzSuffix]="suffixButton">
+        <input type="text" [(ngModel)]="search_name" nz-input placeholder="请输入小镇名称">
+      </nz-input-group>
+      <ng-template #suffixButton>
+        <button nz-button nzType="primary" nzSearch (click)="doSearch()">搜索</button>
+      </ng-template>
+      &nbsp;&nbsp;
+      <button nz-button nzType="default" (click)="doReset()">重置</button>
+    </div>
+    <div class="d-flex align-items-center mb-md">
+      <button nz-button nzType="primary" (click)="addTown()"><i nz-icon type="plus"></i>添加小镇</button>
+      &nbsp;&nbsp;
+      <nz-dropdown *ngIf="selectedRows.length > 0" [nzPlacement]="'bottomLeft'">
+        <button nz-button nz-dropdown>
+          批量操作
+          <i nz-icon type="down"></i>
+        </button>
+        <ul nz-menu>
+          <li nz-menu-item (click)="batch(1)">删除</li>
+        </ul>
+      </nz-dropdown>
+    </div>
+    <st #st [data]="towns" [columns]="columns" [loading]="loading" [page]="page" [pi]="pi" [ps]="ps" [total]="total"
+      (change)="_click($event)">
+    </st>
+  </nz-card>
+</page-header-wrapper>
+<ng-template #breadcrumb>
+  <nz-breadcrumb>
+    <nz-breadcrumb-item><a [routerLink]="''">首页</a></nz-breadcrumb-item>
+    <nz-breadcrumb-item><a [routerLink]="'/town'">小镇</a></nz-breadcrumb-item>
+    <nz-breadcrumb-item>小镇管理</nz-breadcrumb-item>
+  </nz-breadcrumb>
+</ng-template>

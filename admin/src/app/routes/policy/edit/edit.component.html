@@ -1,0 +1,73 @@
+<page-header-wrapper [title]="null" [breadcrumb]="breadcrumb">
+  <nz-card [nzBordered]="false">
+    <form nz-form [formGroup]="form" (ngSubmit)="submit(form)" se-container="1" style="width: 50%;">
+      <se label="标题" error="请输入政策标题" required>
+        <input nz-input formControlName="title" placeholder="请输入标题">
+      </se>
+      <se label="来源" error="请输入政策来源" required>
+        <input nz-input formControlName="source" placeholder="请输入来源">
+      </se>
+      <se label="发布时间" error="请选择发布时间" required>
+        <nz-date-picker formControlName="publish_time"></nz-date-picker>
+      </se>
+      <se label="作者">
+        <input nz-input formControlName="author" placeholder="请输入作者">
+      </se>
+      <se label="关键词">
+        <input nz-input formControlName="keyword" placeholder="请输入关键词">
+      </se>
+      <se label="主图">
+        <nz-upload nzAction="{{imageUploadUrl}}" nzListType="picture-card" [(nzFileList)]="imageList" [nzShowButton]="imageList.length < 1"
+          [nzPreview]="handleImagePreview" [nzBeforeUpload]="beforeImageUpload" (nzChange)="handleImageChange($event)">
+          <i nz-icon type="plus"></i>
+          <div class="ant-upload-text">点击上传</div>
+        </nz-upload>
+      </se>
+      <se label="摘要">
+        <textarea formControlName="summary" nz-input rows="2" placeholder="请输入摘要"></textarea>
+      </se>
+      <se label="内容">
+        <ueditor formControlName="content"></ueditor>
+      </se>
+      <se label="政策文件">
+        <nz-upload nzAction="{{fileUploadUrl}}" [nzShowButton]="fileList.length < 1" [(nzFileList)]="fileList"
+          [nzBeforeUpload]="beforeFileUpload" (nzChange)="handleFileChange($event)">
+          <button nz-button type="button">
+            <i nz-icon type="upload"></i><span>点击上传</span>
+          </button>
+        </nz-upload>
+      </se>
+      <se label="排序">
+        <nz-input-number formControlName="sort" [nzMin]="0" [nzStep]="1"></nz-input-number>
+      </se>
+      <se label="点击次数">
+        <nz-input-number formControlName="clicks" [nzMin]="0" [nzStep]="1"></nz-input-number>
+      </se>
+      <se label="分享次数">
+        <nz-input-number formControlName="share_count" [nzMin]="0" [nzStep]="1"></nz-input-number>
+      </se>
+      <se label="是否展示" required>
+        <nz-radio-group formControlName="status">
+          <label nz-radio nzValue="2">展示</label>
+          <label nz-radio nzValue="1">不展示</label>
+        </nz-radio-group>
+      </se>
+      <se>
+        <button nz-button nzType="primary" [disabled]="form.invalid" type="submit" [nzLoading]="submitting">提交</button>
+      </se>
+    </form>
+  </nz-card>
+</page-header-wrapper>
+<ng-template #breadcrumb>
+  <nz-breadcrumb>
+    <nz-breadcrumb-item><a [routerLink]="''">首页</a></nz-breadcrumb-item>
+    <nz-breadcrumb-item><a [routerLink]="'/policy'">政策</a></nz-breadcrumb-item>
+    <nz-breadcrumb-item><a [routerLink]="'/policy/list'">政策管理</a></nz-breadcrumb-item>
+    <nz-breadcrumb-item>编辑政策</nz-breadcrumb-item>
+  </nz-breadcrumb>
+</ng-template>
+<nz-modal [nzVisible]="previewImageVisible" [nzContent]="modalContent" [nzFooter]="null" (nzOnCancel)="previewImageVisible=false">
+  <ng-template #modalContent>
+    <img [src]="previewImage" [ngStyle]="{ 'width': '100%' }" />
+  </ng-template>
+</nz-modal>

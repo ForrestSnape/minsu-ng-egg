@@ -12,6 +12,7 @@ class PlatformController extends Controller {
         };
         ctx.status = 200;
     }
+
 }
 
 module.exports = PlatformController;

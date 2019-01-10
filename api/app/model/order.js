@@ -8,19 +8,19 @@ module.exports = app => {
 
     const Order = app.model.define('order', {
         id: {
-            type: INTEGER,
+            type: INTEGER(11),
             primaryKey: true,
             autoIncrement: true,
         },
-        room_id: INTEGER,
-        platform_id: INTEGER,
-        begin: INTEGER,
-        end: INTEGER,
-        days: INTEGER,
-        total_price: DECIMAL(10, 2),
-        deduct_price: DECIMAL(10, 2),
-        profit_price: DECIMAL(10, 2),
-        customer_id: INTEGER
+        user_id: INTEGER(11),
+        room_id: INTEGER(11),
+        platform_id: INTEGER(11),
+        begin: INTEGER(11),
+        end: INTEGER(11),
+        days: INTEGER(11),
+        total: DECIMAL(10, 2),
+        deduct: DECIMAL(10, 2),
+        profit: DECIMAL(10, 2)
     }, {
         tableName: 'minsu_order',
         freezeTableName: true,

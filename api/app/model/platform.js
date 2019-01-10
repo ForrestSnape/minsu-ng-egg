@@ -14,7 +14,7 @@ module.exports = app => {
         },
         name: STRING(50),
         photo: STRING(255),
-        address_url: STRING(255)
+        url: STRING(255)
     }, {
         tableName: 'minsu_platform',
         freezeTableName: true,

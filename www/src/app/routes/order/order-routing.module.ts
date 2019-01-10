@@ -6,10 +6,11 @@ import { OrderDetailComponent } from './detail/detail.component';
 import { OrderEditComponent } from './edit/edit.component';
 
 const routes: Routes = [
+  { path: '', redirectTo: 'list' },
   { path: 'list', component: OrderListComponent },
   { path: 'add', component: OrderAddComponent },
   { path: 'detail/:order_id', component: OrderDetailComponent },
-  { path: 'edit', component: OrderEditComponent }
+  { path: 'edit/:order_id', component: OrderEditComponent }
 ];
 
 @NgModule({

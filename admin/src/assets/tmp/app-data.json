@@ -1,0 +1,129 @@
+{
+  "app": {
+    "name": "内蒙古特色小镇",
+    "description": "内蒙古特色小镇-管理后台"
+  },
+  "user": {
+    "name": "Admin",
+    "avatar": "./assets/tmp/img/avatar.jpg",
+    "email": "cipchk@qq.com"
+  },
+  "menu": [{
+      "text": "主导航",
+      "i18n": "menu.main",
+      "group": true,
+      "hideInBreadcrumb": true,
+      "children": [{
+        "text": "仪表盘",
+        "i18n": "menu.dashboard",
+        "icon": "anticon anticon-dashboard",
+        "children": [{
+          "text": "分析页",
+          "link": "/dashboard/analysis",
+          "i18n": "menu.dashboard.analysis"
+        }]
+      }]
+    },
+    {
+      "text": "Town",
+      "i18n": "menu.town",
+      "group": true,
+      "hideInBreadcrumb": true,
+      "children": [{
+        "text": "Town Manager",
+        "link": "/town",
+        "i18n": "menu.town.manager",
+        "icon": "anticon anticon-home",
+        "children": [{
+            "text": "Town List",
+            "link": "/town/list",
+            "i18n": "menu.town.manager.list"
+          }, {
+            "text": "Album Manager",
+            "link": "/album",
+            "i18n": "menu.album.manager"
+          },
+          {
+            "text": "Industry Manager",
+            "link": "/industry",
+            "i18n": "menu.industry.manager"
+          }
+        ]
+      }]
+    },
+    {
+      "text": "Article",
+      "i18n": "menu.article",
+      "group": true,
+      "hideInBreadcrumb": true,
+      "children": [{
+        "text": "Article Manager",
+        "link": "/article",
+        "i18n": "menu.article.manager",
+        "icon": "anticon anticon-edit",
+        "children": [{
+            "text": "Article List",
+            "link": "/article/list",
+            "i18n": "menu.article.manager.list"
+          },
+          {
+            "text": "Article Category Manager",
+            "link": "/article/category",
+            "i18n": "menu.article.category.manager"
+          }
+        ]
+      }]
+    },
+    {
+      "text": "Policy",
+      "i18n": "menu.policy",
+      "group": true,
+      "hideInBreadcrumb": true,
+      "children": [{
+        "text": "Policy Manager",
+        "link": "/policy",
+        "i18n": "menu.policy.manager",
+        "icon": "anticon anticon-book",
+        "children": [{
+          "text": "Policy List",
+          "link": "/policy/list",
+          "i18n": "menu.policy.manager.list"
+        }]
+      }]
+    },
+    {
+      "text": "User",
+      "i18n": "menu.user",
+      "group": true,
+      "hideInBreadcrumb": true,
+      "children": [{
+        "text": "User Manager",
+        "link": "/user",
+        "i18n": "menu.user.manager",
+        "icon": "anticon anticon-user",
+        "children": [{
+          "text": "Role Manager",
+          "link": "/user/role",
+          "i18n": "menu.user.manager.role"
+        }]
+      }]
+    },
+    {
+      "text": "System",
+      "i18n": "menu.system",
+      "group": true,
+      "hideInBreadcrumb": true,
+      "children": [{
+        "text": "System Manager",
+        "link": "/system",
+        "i18n": "menu.system.manager",
+        "icon": "anticon anticon-setting",
+        "children": [{
+          "text": "Module Manager",
+          "link": "/system/module",
+          "i18n": "menu.system.manager.module"
+        }]
+      }]
+    }
+  ]
+}

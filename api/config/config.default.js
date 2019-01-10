@@ -1,43 +1,46 @@
 'use strict';
 
+const sequelize = require('./config.sequelize');
+
 module.exports = appInfo => {
   const config = exports = {};
 
-  // use for cookie sign key, should change to your own and keep security
-  config.keys = appInfo.name + '_1545021351577_9232';
+  //端口号监听
+  config.cluster = {
+    listen: {
+      path: '',
+      port: 5300,
+      hostname: '0.0.0.0',
+    }
+  };
 
-  // add your config here
-  config.middleware = [];
+  // cookie sign key
+  config.keys = appInfo.name + '_#@$fkdlsa945#@_432@#!';
 
   //支持跨域
   config.security = {
     csrf: {
-        enable: false,
-        ignoreJSON: true,
+      enable: false,
+      ignoreJSON: true,
     },
     domainWhiteList: ['*']
   };
   config.cors = {
-      origin:'*',
-      allowMethods: 'GET,HEAD,PUT,POST,DELETE,PATCH,OPTIONS',
+    credentials: true,
+    origin: 'http://localhost:5353',
+    allowMethods: 'GET,HEAD,PUT,POST,DELETE,PATCH,OPTIONS',
   };
 
   // 盐
   config.salt = 'jfdosa$4dklsa3@E!';
 
-  // token持续时间 单位：秒
-  config.token = {
-    duration: 7 * 24 * 60 * 60
-  };
-
   // 数据库连接配置
-  config.sequelize = {
-    dialect: 'mysql',
-    host: '127.0.0.1',
-    port: 3306,
-    database: 'minsu',
-    username: 'root',
-    password: 'root'
+  config.sequelize = sequelize;
+
+  // 中间件
+  config.middleware = ['checkLogin'];
+  config.checkLogin = {
+    ignore: ['/login', '/register']
   };
 
   return config;

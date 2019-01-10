@@ -1,6 +1,8 @@
-<page-grid>
+<page-header-wrapper [title]="null" [breadcrumb]="breadcrumb">
   <nz-card>
     <div class="d-flex align-items-center mb-md">
+      <button nz-button nzType="primary" (click)="addOrder()"><i nz-icon type="plus"></i>添加订单</button>
+      &nbsp;&nbsp;
       <nz-range-picker class="brand-range-picker__date" [(ngModel)]="pickerDate" (ngModelChange)="selectDate()"></nz-range-picker>
       &nbsp;&nbsp;
       <nz-select style="width: 200px" nzShowSearch nzPlaceHolder="全部房间" (ngModelChange)="selectRoom($event)"
@@ -16,11 +18,16 @@
       <button nz-button nzType="primary" (click)="doSearch()">查询订单</button>
       &nbsp;
       <button nz-button nzType="default" (click)="doReset()">重置</button>
-      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-      <button nz-button nzType="default" (click)="addOrder()"><i nz-icon [type]="'plus-circle'" [theme]="'outline'"></i>添加订单</button>
     </div>
     <st #st [data]="orders" [columns]="columns" [loading]="loading" [page]="page" [pi]="pi" [ps]="ps" [total]="total"
       (change)="_click($event)">
     </st>
   </nz-card>
-</page-grid>
+</page-header-wrapper>
+<ng-template #breadcrumb>
+  <nz-breadcrumb>
+    <nz-breadcrumb-item><a [routerLink]="''">首页</a></nz-breadcrumb-item>
+    <nz-breadcrumb-item><a [routerLink]="'/order'">订单管理</a></nz-breadcrumb-item>
+    <nz-breadcrumb-item>订单列表</nz-breadcrumb-item>
+  </nz-breadcrumb>
+</ng-template>

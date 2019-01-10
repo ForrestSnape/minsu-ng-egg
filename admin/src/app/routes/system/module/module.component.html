@@ -1,0 +1,47 @@
+<page-header-wrapper [title]="null" [breadcrumb]="breadcrumb">
+  <div nz-row [nzGutter]="32">
+    <div nz-col nzMd="24" nzLg="8">
+      <nz-card [nzTitle]="'模块管理'" [nzExtra]="extraTpl">
+        <ng-template #extraTpl>
+          <button (click)="add(null)" nz-button nzSize="small">添加根模块</button>
+        </ng-template>
+        <div *ngIf="modules.length === 0">暂无模块</div>
+        <div *ngIf="modules.length > 0" scrollbar class="position-relative" style="height: 600px;">
+          <nz-tree [(ngModel)]="modules" (nzClick)="show($event)" (nzContextMenu)="showContextMenu($event, contextMenu)">
+          </nz-tree>
+        </div>
+      </nz-card>
+    </div>
+    <div nz-col nzMd="24" nzLg="16" *ngIf="op">
+      <nz-card [nzTitle]="op === 'view' ? '查看' : op === 'edit' ? '修改' : '添加'">
+        <sv-container *ngIf="op === 'view'" col="1">
+          <sv label="模块名">{{item.name}}</sv>
+          <sv label="模块">{{item.module}}</sv>
+          <sv label="动作">{{item.action}}</sv>
+          <sv label="菜单">{{item.is_menu?'是':'否'}}</sv>
+        </sv-container>
+        <sf *ngIf="op === 'edit' || op === 'add'" [schema]="schema" [formData]="item" (formSubmit)="save($event)" style="width:50%"></sf>
+      </nz-card>
+    </div>
+  </div>
+</page-header-wrapper>
+<ng-template #contextMenu>
+  <ul nz-menu nzInDropDown>
+    <li nz-menu-item (click)="edit()" acl="user3">修改</li>
+    <li nz-menu-item [nzDisabled]="delDisabled">
+      <nz-popconfirm *ngIf="!delDisabled" [nzTitle]="delMsg" (nzOnConfirm)="del()">
+        <div nz-popconfirm>删除</div>
+      </nz-popconfirm>
+      <div *ngIf="delDisabled">删除</div>
+    </li>
+    <li nz-menu-item (click)="add(item)">添加子模块</li>
+  </ul>
+</ng-template>
+<ng-template #breadcrumb>
+  <nz-breadcrumb>
+    <nz-breadcrumb-item><a [routerLink]="''">首页</a></nz-breadcrumb-item>
+    <nz-breadcrumb-item><a [routerLink]="'/system'">系统</a></nz-breadcrumb-item>
+    <nz-breadcrumb-item><a [routerLink]="'/system/module'">模块管理</a></nz-breadcrumb-item>
+    <nz-breadcrumb-item>模块列表</nz-breadcrumb-item>
+  </nz-breadcrumb>
+</ng-template>
