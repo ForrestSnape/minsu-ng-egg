@@ -201,6 +201,8 @@
   "layout.pro.user.link.home": "Pro 首页",
   "layout.pro.user.link.alain": "Alain",
 
+  "menu.room": "房间",
+  "menu.room.manager": "房间管理",
   "menu.order": "订单",
   "menu.order.manager": "订单管理",
   "menu.town": "小镇",

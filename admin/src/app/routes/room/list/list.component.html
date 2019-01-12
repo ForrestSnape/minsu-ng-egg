@@ -1,0 +1,122 @@
+<page-header-wrapper [title]="null" [breadcrumb]="breadcrumb">
+  <nz-list [nzLoading]="loading" [nzDataSource]="rooms" [nzRenderItem]="item" [nzGrid]="{gutter: 24, lg: 8, md: 12, sm: 24, xs: 24 }">
+    <ng-template #item let-item>
+      <nz-list-item>
+        <button *ngIf="item === null" nz-button (click)="addRoom()" [nzType]="'dashed'" style="width: 100%; height: 184px;">
+          <i nz-icon type="plus"></i>
+          <span>新增房间</span>
+        </button>
+        <nz-card nzHoverable *ngIf="item !== null" [nzActions]="[edit,del]" style="width: 100%;">
+          <ng-template #edit><a (click)="editRoom(item.id)">编辑</a></ng-template>
+          <ng-template #del><a nz-popconfirm nzTitle="确认删除吗？" nzOkText="确定" nzCancelText="取消" (nzOnConfirm)="delRoom(item.id)">删除</a></ng-template>
+          <nz-card-meta [nzTitle]="nzTitle" [nzDescription]="nzAddress">
+            <ng-template #nzTitle>
+              {{item.name}}
+            </ng-template>
+            <ng-template #nzAddress>
+              <ellipsis>
+                <i *ngFor="let star of stars" nz-icon [type]="'star'" [theme]="'twotone'" [twoToneColor]="'#FFD701'"></i>
+              </ellipsis>
+              <ellipsis>租金：{{item.rent}}元</ellipsis>
+              <ellipsis>地址：{{item.address}}</ellipsis>
+            </ng-template>
+          </nz-card-meta>
+        </nz-card>
+      </nz-list-item>
+    </ng-template>
+  </nz-list>
+</page-header-wrapper>
+<ng-template #breadcrumb>
+  <nz-breadcrumb>
+    <nz-breadcrumb-item><a [routerLink]="''">首页</a></nz-breadcrumb-item>
+    <nz-breadcrumb-item><a [routerLink]="'/room'">房间</a></nz-breadcrumb-item>
+    <nz-breadcrumb-item><a [routerLink]="'/room/admin-user'">房间管理</a></nz-breadcrumb-item>
+    <nz-breadcrumb-item>房间列表</nz-breadcrumb-item>
+  </nz-breadcrumb>
+</ng-template>
+
+<nz-drawer [nzBodyStyle]="{ height: 'calc(100% - 55px)', overflow: 'auto', 'padding-bottom':'53px' }" [nzMaskClosable]="false"
+  [nzWidth]="480" [nzVisible]="addVisible" nzTitle="新增房间" (nzOnClose)="addRoomClose()">
+  <form nz-form [formGroup]="add_form" (ngSubmit)="addSubmit(add_form)" se-container="1">
+    <div nz-row nzGutter="8">
+      <div nz-col nzSpan="12">
+        <nz-form-item>
+          <nz-form-label>名称</nz-form-label>
+          <nz-form-control>
+            <input nz-input formControlName="name" placeholder="请填写房间名称">
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+      <div nz-col nzSpan="12">
+        <nz-form-item>
+          <nz-form-label>租金(月)</nz-form-label>
+          <nz-form-control>
+            <nz-input-number formControlName="rent" [nzMin]="0" [nzStep]="1" [nzFormatter]="formatterCNY" [nzParser]="parserCNY"></nz-input-number>
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+    </div>
+    <div nz-row nzGutter="8">
+      <div nz-col nzSpan="24">
+        <nz-form-item>
+          <nz-form-label>地址</nz-form-label>
+          <nz-form-control>
+            <input nz-input formControlName="address" placeholder="请填写房间地址">
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+    </div>
+    <div nz-row nzGutter="8">
+      <div nz-col nzSpan="24">
+        <nz-form-item>
+          <nz-form-control>
+            <button nz-button nzType="primary" [disabled]="add_form.invalid" type="submit" [nzLoading]="submitting">提交</button>
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+    </div>
+  </form>
+</nz-drawer>
+
+<nz-drawer [nzBodyStyle]="{ height: 'calc(100% - 55px)', overflow: 'auto', 'padding-bottom':'53px' }" [nzMaskClosable]="false"
+  [nzWidth]="480" [nzVisible]="editVisible" nzTitle="编辑房间" (nzOnClose)="editRoomClose()">
+  <form nz-form [formGroup]="edit_form" (ngSubmit)="editSubmit(edit_form)" se-container="1">
+    <div nz-row nzGutter="8">
+      <div nz-col nzSpan="12">
+        <nz-form-item>
+          <nz-form-label>名称</nz-form-label>
+          <nz-form-control>
+            <input nz-input formControlName="name" placeholder="请填写房间名称">
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+      <div nz-col nzSpan="12">
+        <nz-form-item>
+          <nz-form-label>租金(月)</nz-form-label>
+          <nz-form-control>
+            <nz-input-number formControlName="rent" [nzMin]="0" [nzStep]="1" [nzFormatter]="formatterCNY" [nzParser]="parserCNY"></nz-input-number>
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+    </div>
+    <div nz-row nzGutter="8">
+      <div nz-col nzSpan="24">
+        <nz-form-item>
+          <nz-form-label>地址</nz-form-label>
+          <nz-form-control>
+            <input nz-input formControlName="address" placeholder="请填写房间地址">
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+    </div>
+    <div nz-row nzGutter="8">
+      <div nz-col nzSpan="24">
+        <nz-form-item>
+          <nz-form-control>
+            <button nz-button nzType="primary" [disabled]="edit_form.invalid" type="submit" [nzLoading]="submitting">提交</button>
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+    </div>
+  </form>
+</nz-drawer>

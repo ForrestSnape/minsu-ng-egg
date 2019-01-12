@@ -30,6 +30,16 @@ export class MenuConfig {
                         i18n: 'menu.dashboard.analysis'
                     }]
                 }, {
+                    text: 'Room',
+                    link: '/room',
+                    i18n: 'menu.room',
+                    icon: 'anticon anticon-home',
+                    children: [{
+                        text: 'Room Manager',
+                        link: '/room/list',
+                        i18n: 'menu.room.manager'
+                    }]
+                }, {
                     text: 'Order',
                     link: '/order',
                     i18n: 'menu.order',
@@ -38,76 +48,6 @@ export class MenuConfig {
                         text: 'Order Manager',
                         link: '/order/list',
                         i18n: 'menu.order.manager'
-                    }]
-                }, {
-                    text: 'Town Manager',
-                    link: '/town',
-                    i18n: 'menu.town.manager',
-                    icon: 'anticon anticon-home',
-                    children: [{
-                        text: 'Town List',
-                        link: '/town/list',
-                        i18n: 'menu.town.manager.list'
-                    }, {
-                        text: 'Album Manager',
-                        link: '/album',
-                        i18n: 'menu.album.manager'
-                    },
-                    {
-                        text: 'Industry Manager',
-                        link: '/industry',
-                        i18n: 'menu.industry.manager'
-                    }
-                    ]
-                }, {
-                    text: 'Article Manager',
-                    link: '/article',
-                    i18n: 'menu.article.manager',
-                    icon: 'anticon anticon-edit',
-                    children: [{
-                        text: 'Article List',
-                        link: '/article/list',
-                        i18n: 'menu.article.manager.list',
-                        acl: this.ruleConfig.rules.article.list
-                    },
-                    {
-                        text: 'Article Category Manager',
-                        link: '/article/category',
-                        i18n: 'menu.article.category.manager',
-                    }]
-                }, {
-                    text: 'Policy Manager',
-                    link: '/policy',
-                    i18n: 'menu.policy.manager',
-                    icon: 'anticon anticon-book',
-                    children: [{
-                        text: 'Policy List',
-                        link: '/policy/list',
-                        i18n: 'menu.policy.manager.list'
-                    }]
-                }, {
-                    text: 'User Manager',
-                    link: '/user',
-                    i18n: 'menu.user.manager',
-                    icon: 'anticon anticon-user',
-                    children: [{
-                        text: 'Admin User Manager',
-                        link: '/user/admin-user',
-                        i18n: 'menu.user.manager.admin-user'
-                    }, {
-                        text: 'Role Manager',
-                        link: '/user/role',
-                        i18n: 'menu.user.manager.role'
-                    }]
-                }, {
-                    text: 'System Manager',
-                    link: '/system',
-                    i18n: 'menu.system.manager',
-                    icon: 'anticon anticon-setting',
-                    children: [{
-                        text: 'Module Manager',
-                        link: '/system/module',
-                        i18n: 'menu.system.manager.module'
                     }]
                 }]
             },

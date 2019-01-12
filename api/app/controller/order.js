@@ -48,9 +48,9 @@ class OrderController extends Controller {
     }
 
     // 删除订单
-    async delete() {
+    async del() {
         const ctx = this.ctx;
-        const res = await ctx.service.order.delete(ctx.query);
+        const res = await ctx.service.order.del(ctx.query);
         ctx.body = {
             code: 0,
             data: res

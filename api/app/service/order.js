@@ -164,7 +164,7 @@ class OrderService extends Service {
     }
 
     // 删除订单
-    async delete(params) {
+    async del(params) {
         const ctx = this.ctx;
         return await ctx.model.transaction(t => {
             return ctx.model.Order.destroy({
