@@ -1,7 +1,7 @@
 import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, FormArray, FormControl } from '@angular/forms';
 import { NzMessageService } from 'ng-zorro-antd';
-import { _HttpClient, SettingsService } from '@delon/theme';
+import { _HttpClient } from '@delon/theme';
 import { FunctionService } from '@shared/service/function.service';
 import { Router } from '@angular/router';
 import { ApiConfig } from 'app/config/api.config';
@@ -11,7 +11,6 @@ import { ApiConfig } from 'app/config/api.config';
   templateUrl: './add.component.html',
 })
 export class OrderAddComponent implements OnInit {
-  user_id: number;
   rooms: any;
   room_id: number;
   platforms: any;
@@ -39,11 +38,9 @@ export class OrderAddComponent implements OnInit {
     private func: FunctionService,
     private router: Router,
     private apiConfig: ApiConfig,
-    private settings: SettingsService
   ) { }
 
   ngOnInit(): void {
-    this.user_id = this.settings.user.id;
     this.initForm();
     this.getRooms();
     this.getPlatforms();
@@ -127,7 +124,6 @@ export class OrderAddComponent implements OnInit {
   submit(form) {
     this.submitting = true;
     const params = form.value;
-    params.user_id = this.user_id;
     params.date_price = this.date_price;
     params.begin = this.func.getTimeStampByDate(form.value.date_range[0], '14:00:00', 's');
     params.end = this.func.getTimeStampByDate(form.value.date_range[1], '12:00:00', 's');

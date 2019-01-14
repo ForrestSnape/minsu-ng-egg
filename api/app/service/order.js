@@ -8,8 +8,8 @@ class OrderService extends Service {
         const ctx = this.ctx;
         // 查询条件
         const where = {};
-        if (params.user_id > 0) where.user_id = {
-            $eq: params.user_id
+        if (ctx.session.user_id > 0) where.user_id = {
+            $eq: ctx.session.user_id
         };
         if (params.begin > 0) where.begin = {
             $gte: params.begin
@@ -109,6 +109,7 @@ class OrderService extends Service {
     async add(params) {
         const ctx = this.ctx;
         return await ctx.model.transaction(t => {
+            params.user_id = ctx.session.user_id;
             return ctx.model.Order.create(params, {
                     transaction: t
                 })
@@ -132,6 +133,7 @@ class OrderService extends Service {
         const ctx = this.ctx;
         return await ctx.model.transaction(t => {
             // 修改订单表
+            params.user_id = ctx.session.user_id;
             return ctx.model.Order.update(params, {
                 where: {
                     id: params.id

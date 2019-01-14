@@ -96,6 +96,7 @@ export class RoomListComponent implements OnInit {
       .subscribe((res: any) => {
         if (res.code === 0) {
           if (res.data) {
+            this.msg.success('新增房间成功');
             this.addVisible = false;
             this.getRooms();
           } else {
@@ -145,6 +146,7 @@ export class RoomListComponent implements OnInit {
       .subscribe((res: any) => {
         if (res.code === 0) {
           if (res.data) {
+            this.msg.success('编辑房间成功');
             this.editVisible = false;
             this.getRooms();
           } else {

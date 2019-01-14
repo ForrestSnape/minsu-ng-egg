@@ -1,7 +1,7 @@
 import { Component, ChangeDetectionStrategy, ViewChild, ChangeDetectorRef } from '@angular/core';
 import { NzMessageService } from 'ng-zorro-antd';
 import { STComponent, STColumn, STChange, STPage, STData, STColumnTag } from '@delon/abc';
-import { _HttpClient, SettingsService } from '@delon/theme';
+import { _HttpClient } from '@delon/theme';
 import { Router } from '@angular/router';
 import { ApiConfig } from 'app/config/api.config';
 import { FunctionService } from '@shared/service/function.service';
@@ -18,7 +18,6 @@ const STATUS: STColumnTag = {
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class OrderListComponent {
-  private user_id: number;
   rooms: Array<any>;
   room_id: number;
   platforms: Array<any>;
@@ -106,11 +105,9 @@ export class OrderListComponent {
     private router: Router,
     private apiConfig: ApiConfig,
     private func: FunctionService,
-    private settings: SettingsService
   ) { }
 
   ngOnInit(): void {
-    this.user_id = this.settings.user.id;
     this.getRooms();
     this.getPlatforms();
     this.getOrders();
@@ -140,7 +137,6 @@ export class OrderListComponent {
     const params = {
       pi: this.pi,
       ps: this.ps,
-      user_id: this.user_id,
       begin: date_range[0] ? date_range[0] : 0,
       end: date_range[1] ? date_range[1] : 0,
       room_id: this.room_id ? this.room_id : 0,

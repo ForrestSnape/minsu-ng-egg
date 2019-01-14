@@ -1,7 +1,7 @@
 import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, FormArray, FormControl } from '@angular/forms';
 import { NzMessageService } from 'ng-zorro-antd';
-import { _HttpClient, SettingsService } from '@delon/theme';
+import { _HttpClient } from '@delon/theme';
 import { FunctionService } from '@shared/service/function.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { ApiConfig } from 'app/config/api.config';
@@ -11,7 +11,6 @@ import { ApiConfig } from 'app/config/api.config';
   templateUrl: './edit.component.html',
 })
 export class OrderEditComponent implements OnInit {
-  user_id: number;
   id: number;
   order: any;
   rooms: any;
@@ -36,12 +35,10 @@ export class OrderEditComponent implements OnInit {
     private func: FunctionService,
     private router: Router,
     private apiConfig: ApiConfig,
-    private settings: SettingsService,
     private ar: ActivatedRoute
   ) { }
 
   ngOnInit(): void {
-    this.user_id = this.settings.user.id;
     this.id = this.ar.snapshot.params.id;
     this.initForm();
     this.getOrder();
@@ -152,7 +149,6 @@ export class OrderEditComponent implements OnInit {
   submit(form) {
     this.submitting = true;
     const params = form.value;
-    params.user_id = this.user_id;
     params.id = this.id;
     params.date_price = this.date_price;
     params.begin = this.func.getTimeStampByDate(form.value.date_range[0], '14:00:00', 's');

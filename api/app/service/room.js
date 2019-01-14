@@ -29,19 +29,16 @@ class RoomService extends Service {
     async add(params) {
         const ctx = this.ctx;
         if (await this.checkRoomName(ctx.session.user_id, params.name)) return false;
-
-        return await ctx.model.Room.create({ ...params,
-            user_id: ctx.session.user_id
-        });
+        params.user_id = ctx.session.user_id;
+        return await ctx.model.Room.create(params);
     }
 
     // 编辑房间
     async edit(params) {
         const ctx = this.ctx;
         if (await this.checkRoomName(ctx.session.user_id, params.name)) return false;
-        return await ctx.model.Room.update({ ...params,
-            user_id: ctx.session.user_id
-        }, {
+        params.user_id = ctx.session.user_id;
+        return await ctx.model.Room.update(params, {
             where: {
                 id: params.id
             }
