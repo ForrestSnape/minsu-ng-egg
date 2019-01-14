@@ -1,16 +1,8 @@
-<global-footer>
-  <global-footer-item href="https://e.ng-alain.com/theme/pro" blankTarget>
-    {{ 'layout.pro.user.link.home' | translate }}
-  </global-footer-item>
-  <global-footer-item href="https://github.com/ng-alain" blankTarget>
-    <i nz-icon type="github"></i>
-  </global-footer-item>
-  <global-footer-item href="https://ng-alain.github.io/ng-alain/" blankTarget>
-    {{ 'layout.pro.user.link.alain' | translate }}
-  </global-footer-item>
+<global-footer [links]="links">
   Copyright
-  <i nz-icon type="copyright" class="mx-sm"></i>
-  {{year}}
-  <a href="//github.com/cipchk" target="_blank" class="mx-sm">卡色</a>
-  出品
+  <i class="anticon anticon-copyright"></i>
+  2019 by
+  <a href="//www.terabithian.com" target="_blank">苏笑</a>
+  <br>
+  <a href="http://www.miitbeian.gov.cn/" target="_blank">苏ICP备18057727号</a>
 </global-footer>

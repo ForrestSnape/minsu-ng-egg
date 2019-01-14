@@ -3,7 +3,6 @@ import { NgModule } from '@angular/core';
 import { SharedModule } from '@shared/shared.module';
 import { RouteRoutingModule } from './routes-routing.module';
 // dashboard pages
-import { DashboardAnalysisComponent } from './dashboard/analysis/analysis.component';
 // passport pages
 import { UserLoginComponent } from './passport/login/login.component';
 import { UserRegisterComponent } from './passport/register/register.component';
@@ -16,7 +15,6 @@ import { Exception404Component } from './exception/404.component';
 import { Exception500Component } from './exception/500.component';
 
 const COMPONENTS = [
-  DashboardAnalysisComponent,
   // passport pages
   UserLoginComponent,
   UserRegisterComponent,
@@ -35,4 +33,4 @@ const COMPONENTS_NOROUNT = [];
   declarations: [...COMPONENTS, ...COMPONENTS_NOROUNT],
   entryComponents: COMPONENTS_NOROUNT
 })
-export class RoutesModule {}
+export class RoutesModule { }

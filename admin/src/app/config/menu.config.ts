@@ -21,13 +21,13 @@ export class MenuConfig {
                 group: true,
                 hideInBreadcrumb: true,
                 children: [{
-                    text: '仪表盘',
+                    text: 'Dashboard',
                     i18n: 'menu.dashboard',
                     icon: 'anticon anticon-dashboard',
                     children: [{
-                        text: '分析页',
-                        link: '/dashboard/analysis',
-                        i18n: 'menu.dashboard.analysis'
+                        text: 'Calendar',
+                        link: '/dashboard/calendar',
+                        i18n: 'menu.dashboard.calendar'
                     }]
                 }, {
                     text: 'Room',

@@ -5,10 +5,10 @@ const Crypto = require('crypto');
 
 class PassportService extends Service {
     // 根据用户ID获取单个用户信息
-    async getUserById(user_id) {
+    async getUserById(id) {
         return await this.app.model.User.findOne({
             where: {
-                id: user_id
+                id: id
             },
             attributes: ['id', 'username', 'nickname', 'headimg', 'level', 'motto'],
         });

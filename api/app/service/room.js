@@ -4,11 +4,11 @@ const Service = require('egg').Service;
 
 class RoomService extends Service {
     // 获取房间列表
-    async list(params) {
+    async list() {
         const ctx = this.ctx;
         let rooms = await ctx.model.Room.findAll({
             where: {
-                user_id: params.user_id
+                user_id: ctx.session.user_id
             }
         });
         return rooms;
@@ -28,35 +28,35 @@ class RoomService extends Service {
     // 添加房间
     async add(params) {
         const ctx = this.ctx;
-        // 检查房间名是否存在
-        if (await ctx.model.Room.findOne({
-                where: {
-                    user_id: params.user_id,
-                    name: params.name
-                }
-            })) {
-            return false;
-        }
-        return await ctx.model.Room.create(params);
+        if (await this.checkRoomName(ctx.session.user_id, params.name)) return false;
+
+        return await ctx.model.Room.create({ ...params,
+            user_id: ctx.session.user_id
+        });
     }
 
     // 编辑房间
     async edit(params) {
         const ctx = this.ctx;
-        // 检查房间名是否存在
-        if (await ctx.model.Room.findOne({
-                where: {
-                    user_id: params.user_id,
-                    name: params.name
-                }
-            })) {
-            return false;
-        }
-        return await ctx.model.Room.update(params, {
+        if (await this.checkRoomName(ctx.session.user_id, params.name)) return false;
+        return await ctx.model.Room.update({ ...params,
+            user_id: ctx.session.user_id
+        }, {
             where: {
                 id: params.id
             }
         });
+    }
+
+    // 检查某个用户房间名是否存在
+    async checkRoomName(user_id, name) {
+        const ctx = this.ctx;
+        return await ctx.model.Room.findOne({
+            where: {
+                user_id: user_id,
+                name: name
+            }
+        }) ? true : false;
     }
 
     // 检查房间下是否有订单

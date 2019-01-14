@@ -1,16 +1,16 @@
 import { NgModule } from '@angular/core';
 import { SharedModule } from '@shared/shared.module';
-import { RoomRoutingModule } from './room-routing.module';
-import { RoomListComponent } from './list/list.component';
+import { DashboardRoutingModule } from './dashboard-routing.module';
+import { DashboardCalendarComponent } from './calendar/calendar.component';
 
 const COMPONENTS = [
-  RoomListComponent];
+  DashboardCalendarComponent];
 const COMPONENTS_NOROUNT = [];
 
 @NgModule({
   imports: [
     SharedModule,
-    RoomRoutingModule
+    DashboardRoutingModule
   ],
   declarations: [
     ...COMPONENTS,
@@ -18,4 +18,4 @@ const COMPONENTS_NOROUNT = [];
   ],
   entryComponents: COMPONENTS_NOROUNT
 })
-export class RoomModule { }
+export class DashboardModule { }

@@ -1,14 +1,10 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { RoomListComponent } from './list/list.component';
-import { RoomAddComponent } from './add/add.component';
-import { RoomEditComponent } from './edit/edit.component';
 
 const routes: Routes = [
-
-  { path: 'list', component: RoomListComponent },
-  { path: 'add', component: RoomAddComponent },
-  { path: 'edit/:id', component: RoomEditComponent }];
+  { path: '', redirectTo: 'list', pathMatch: 'full' },
+  { path: 'list', component: RoomListComponent }];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],

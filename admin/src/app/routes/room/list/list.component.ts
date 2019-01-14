@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewEncapsulation, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
 import { NzMessageService } from 'ng-zorro-antd';
-import { _HttpClient, SettingsService } from '@delon/theme';
+import { _HttpClient } from '@delon/theme';
 import { ApiConfig } from 'app/config/api.config';
 import { Router } from '@angular/router';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
@@ -19,7 +19,6 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class RoomListComponent implements OnInit {
-  user_id: number;
   rooms: any;
   stars: Array<boolean> = [true, true, true, true, true];
   lol_addr: Array<string>;
@@ -35,13 +34,11 @@ export class RoomListComponent implements OnInit {
     public msg: NzMessageService,
     private cd: ChangeDetectorRef,
     private apiConfig: ApiConfig,
-    private settings: SettingsService,
     private router: Router,
     private fb: FormBuilder
   ) { }
 
   ngOnInit() {
-    this.user_id = this.settings.user.id;
     this.setLolAddr();
     this.getRooms();
     this.initAddForm();
@@ -49,7 +46,7 @@ export class RoomListComponent implements OnInit {
   }
 
   getRooms() {
-    this.http.get(this.apiConfig.urls.room.list, { user_id: this.user_id })
+    this.http.get(this.apiConfig.urls.room.list)
       .subscribe((res: any) => {
         if (res.code === 0) {
           this.rooms = res.data.map(item => {
@@ -91,7 +88,6 @@ export class RoomListComponent implements OnInit {
 
   addSubmit(form) {
     const params = form.value;
-    params.user_id = this.user_id;
     params.address = params.address ? params.address : '';
     params.photo = '';
     params.keywords = '';
@@ -141,7 +137,6 @@ export class RoomListComponent implements OnInit {
 
   editSubmit(form) {
     const params = form.value;
-    params.user_id = this.user_id;
     params.address = params.address ? params.address : '';
     params.photo = '';
     params.keywords = '';

@@ -5,7 +5,7 @@ import { Injectable } from '@angular/core';
 export class ApiConfig {
     // 静态资源url路径
     sourceAddr: string = 'http://localhost/nmgtsxz/';
-    apiAddr: string = 'http://127.0.0.1:5300';
+    apiAddr: string = 'http://127.0.0.1:7002';
     urls: any = {};
 
     constructor() {

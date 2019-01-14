@@ -5,7 +5,6 @@ import { environment } from '@env/environment';
 import { LayoutProComponent } from '../layout/pro/pro.component';
 import { LayoutPassportComponent } from '../layout/passport/passport.component';
 // dashboard pages
-import { DashboardAnalysisComponent } from './dashboard/analysis/analysis.component';
 // passport pages
 import { UserLoginComponent } from './passport/login/login.component';
 import { UserRegisterComponent } from './passport/register/register.component';
@@ -22,9 +21,8 @@ const routes: Routes = [
     path: '',
     component: LayoutProComponent,
     children: [
-      { path: '', redirectTo: 'dashboard/analysis', pathMatch: 'full' },
-      { path: 'dashboard', redirectTo: 'dashboard/analysis', pathMatch: 'full' },
-      { path: 'dashboard/analysis', component: DashboardAnalysisComponent },
+      { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
+      { path: 'dashboard', loadChildren: './dashboard/dashboard.module#DashboardModule' },
       { path: 'room', loadChildren: './room/room.module#RoomModule' },
       { path: 'order', loadChildren: './order/order.module#OrderModule' },
     ],

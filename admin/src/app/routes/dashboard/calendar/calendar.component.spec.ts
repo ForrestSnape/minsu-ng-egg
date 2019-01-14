@@ -1,19 +1,19 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { RoomEditComponent } from './edit.component';
+import { DashboardCalendarComponent } from './calendar.component';
 
-describe('RoomEditComponent', () => {
-  let component: RoomEditComponent;
-  let fixture: ComponentFixture<RoomEditComponent>;
+describe('DashboardCalendarComponent', () => {
+  let component: DashboardCalendarComponent;
+  let fixture: ComponentFixture<DashboardCalendarComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ RoomEditComponent ]
+      declarations: [ DashboardCalendarComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(RoomEditComponent);
+    fixture = TestBed.createComponent(DashboardCalendarComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

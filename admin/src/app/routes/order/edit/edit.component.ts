@@ -88,7 +88,7 @@ export class OrderEditComponent implements OnInit {
   }
 
   getRooms() {
-    this.http.get(this.apiConfig.urls.room.list, { user_id: this.user_id })
+    this.http.get(this.apiConfig.urls.room.list)
       .subscribe((res: any) => {
         if (res.code === 0) {
           this.rooms = res.data;
