@@ -161,8 +161,8 @@ export class OrderEditComponent implements OnInit {
             this.msg.success('编辑订单成功', { nzDuration: 2000 });
             setTimeout(() => this.router.navigateByUrl(`/order/list`), 2500);
           } else {
-            this.msg.warning('编辑订单失败', { nzDuration: 2000 });
-            setTimeout(() => this.router.navigateByUrl(`/order/list`), 2500);
+            this.msg.warning('编辑订单失败，您选择的日期内已有订单，请仔细核对');
+            this.submitting = false;
           };
         }
       });

@@ -108,6 +108,11 @@ class OrderService extends Service {
     // 添加订单
     async add(params) {
         const ctx = this.ctx;
+        const check = await this.checkOrderForTime(params.room_id, {
+            begin: params.begin,
+            end: params.end
+        });
+        if (!check) return false;
         return await ctx.model.transaction(t => {
             params.user_id = ctx.session.user_id;
             return ctx.model.Order.create(params, {
@@ -131,6 +136,11 @@ class OrderService extends Service {
     // 编辑订单
     async edit(params) {
         const ctx = this.ctx;
+        const check = await this.checkOrderForTime(params.room_id, {
+            begin: params.begin,
+            end: params.end
+        });
+        if (!check) return false;
         return await ctx.model.transaction(t => {
             // 修改订单表
             params.user_id = ctx.session.user_id;
@@ -227,5 +237,31 @@ class OrderService extends Service {
         }
     }
 
+    // 检查某房间 指定时间段的订单能不呢插入 与原有订单时间段是否有交集
+    async checkOrderForTime(room_id, date_range) {
+        const ctx = this.ctx;
+        let check = true;
+        const orders = await ctx.model.Order.findAll({
+            where: {
+                room_id: room_id
+            }
+        });
+        if (!orders) return check;
+        // 房间所有订单 时间范围数组
+        const orders_date_range = [];
+        orders.forEach(order => {
+            orders_date_range.push({
+                begin: order.dataValues.begin,
+                end: order.dataValues.end
+            });
+        });
+        for (let i = 0; i < orders_date_range.length; i++) {
+            if (!(date_range.end < orders_date_range[i].begin || date_range.begin > orders_date_range[i].end)) {
+                check = false;
+                break;
+            }
+        }
+        return check;
+    }
 }
 module.exports = OrderService;
