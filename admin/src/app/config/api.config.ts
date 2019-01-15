@@ -5,7 +5,7 @@ import { Injectable } from '@angular/core';
 export class ApiConfig {
     // 静态资源url路径
     sourceAddr: string = 'http://localhost/nmgtsxz/';
-    apiAddr: string = 'http://127.0.0.1:7002';
+    apiAddr: string = 'http://127.0.0.1:5300';
     urls: any = {};
 
     constructor() {
@@ -51,6 +51,11 @@ export class ApiConfig {
                 batch: this.apiAddr + '/order/batch',
             },
 
+            // 日历相关
+            calendar: {
+                // 全部订单
+                orders: this.apiAddr + '/calendar/orders',
+            }
         }
     }
 

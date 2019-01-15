@@ -63,11 +63,11 @@ export class CalendarTheme {
         header: {
           left: 'prev,next today',
           center: 'title',
-          // right: 'month,agendaWeek,agendaDay,listWeek',
+          right: '',
         },
-        editable: true,
-        eventLimit: true,
-        navLinks: true,
+        editable: false,
+        eventLimit: false,
+        navLinks: false,
         locale: this._i18n.currentLang.toLocaleLowerCase(),
       }, this.options);
       (options as any).themeSystem = 'antd';

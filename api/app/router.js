@@ -24,4 +24,5 @@ module.exports = app => {
   router.post('/order/edit', controller.order.edit);
   router.del('/order/del', controller.order.del);
   router.post('/order/batch', controller.order.batch);
+  router.get('/calendar/orders', controller.calendar.orders);
 };

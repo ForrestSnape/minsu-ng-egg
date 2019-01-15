@@ -7,9 +7,5 @@ import { SettingsService } from '@delon/theme';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class LayoutProFooterComponent {
-  get year() {
-    return this.setting.app.year;
-  }
 
-  constructor(private setting: SettingsService) {}
 }
