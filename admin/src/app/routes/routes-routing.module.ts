@@ -25,6 +25,7 @@ const routes: Routes = [
       { path: 'dashboard', loadChildren: './dashboard/dashboard.module#DashboardModule' },
       { path: 'room', loadChildren: './room/room.module#RoomModule' },
       { path: 'order', loadChildren: './order/order.module#OrderModule' },
+      { path: 'chart', loadChildren: './chart/chart.module#ChartModule' },
     ],
   },
   // passport

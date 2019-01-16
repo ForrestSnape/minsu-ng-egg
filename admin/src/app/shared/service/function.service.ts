@@ -68,4 +68,25 @@ export class FunctionService {
         dateList.push(new Date(e));
         return dateList;
     }
+
+    // 获取指定时间所在 年 月 周 日的时间戳
+    getTimestampByType(date: Date, type: string) {
+        let d = new Date(date);
+        const ret = { begin: null, end: null };
+        switch (type) {
+            case 'year':
+                ret.begin = Math.round(new Date(`${d.getFullYear()}-01-01 12:00:00`).getTime() / 1000);
+                ret.end = Math.round(new Date(`${d.getFullYear()}-12-31 12:00:00`).getTime() / 1000);
+                break;
+            case 'month':
+                ret.begin = Math.round(new Date(`${d.getFullYear()}-${d.getMonth() + 1}-01 12:00:00`).getTime() / 1000);
+                ret.end = Math.round(new Date(`${d.getFullYear()}-${d.getMonth() + 1}-${new Date(d.getFullYear(), d.getMonth() + 1, 0).getDate()} 12:00:00`).getTime() / 1000);
+                break;
+            case 'week':
+                break;
+            case 'day':
+                break;
+        }
+        return ret;
+    }
 }

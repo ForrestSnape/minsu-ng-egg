@@ -53,8 +53,14 @@ export class ApiConfig {
 
             // 日历相关
             calendar: {
-                // 全部订单
                 orders: this.apiAddr + '/calendar/orders',
+            },
+
+            // 图表相关
+            chart: {
+                orderM: this.apiAddr + '/chart/orderM',
+                platformMY: this.apiAddr + '/chart/platformMY',
+                orderY: this.apiAddr + '/chart/orderY',
             }
         }
     }

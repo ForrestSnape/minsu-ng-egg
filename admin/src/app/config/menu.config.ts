@@ -49,6 +49,16 @@ export class MenuConfig {
                         link: '/order/list',
                         i18n: 'menu.order.manager'
                     }]
+                }, {
+                    text: 'Chart',
+                    link: '/chart',
+                    i18n: 'menu.chart',
+                    icon: 'anticon anticon-line-chart',
+                    children: [{
+                        text: 'Chart Room',
+                        link: '/chart/room',
+                        i18n: 'menu.chart.room'
+                    }]
                 }]
             },
         ]

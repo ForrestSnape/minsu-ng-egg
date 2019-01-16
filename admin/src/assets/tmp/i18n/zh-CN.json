@@ -185,7 +185,6 @@
   "menu.map": "地图",
   "menu.map.google": "Google地图",
   "menu.map.baidu": "Baidu地图",
-  "menu.chart": "图表",
   "menu.chart.g2": "G2",
   "menu.chart.ngx-charts": "Ngx Charts",
   "menu.chart.ngx-trend": "Ngx Trend",
@@ -205,5 +204,7 @@
   "menu.room": "房间",
   "menu.room.manager": "房间管理",
   "menu.order": "订单",
-  "menu.order.manager": "订单管理"
+  "menu.order.manager": "订单管理",
+  "menu.chart": "图表",
+  "menu.chart.room": "房间"
 }

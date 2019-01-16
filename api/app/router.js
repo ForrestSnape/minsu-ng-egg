@@ -25,4 +25,7 @@ module.exports = app => {
   router.del('/order/del', controller.order.del);
   router.post('/order/batch', controller.order.batch);
   router.get('/calendar/orders', controller.calendar.orders);
+  router.get('/chart/orderM', controller.chart.orderM);
+  router.get('/chart/platformMY', controller.chart.platformMY);
+  router.get('/chart/orderY', controller.chart.orderY);
 };

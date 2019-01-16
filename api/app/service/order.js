@@ -6,6 +6,7 @@ class OrderService extends Service {
     // 获取订单列表
     async list(params) {
         const ctx = this.ctx;
+        const sqlParams = {};
         // 查询条件
         const where = {};
         if (ctx.session.user_id > 0) where.user_id = {
@@ -23,28 +24,29 @@ class OrderService extends Service {
         if (params.platform_id > 0) where.platform_id = {
             $eq: params.platform_id
         };
+        if (where) sqlParams.where = where;
         // 分页
         const limit = parseInt(params.ps);
         const offset = parseInt(params.ps * (params.pi - 1));
+        if (params.pi > 0) {
+            sqlParams.offset = offset;
+            sqlParams.limit = limit;
+        }
         // 排序
         const order = [
             [params.order_by.split(',')[0], params.order_by.split(',')[1]]
         ];
-        let orders = await ctx.model.Order.findAll({
-            where: where,
-            offset: offset,
-            limit: limit,
-            order: order,
-            include: [{
-                    model: ctx.model.Room,
-                    attributes: ['id', 'name']
-                },
-                {
-                    model: ctx.model.Platform,
-                    attributes: ['id', 'name']
-                },
-            ]
-        });
+        if (order) sqlParams.order = order;
+        sqlParams.include = [{
+                model: ctx.model.Room,
+                attributes: ['id', 'name']
+            },
+            {
+                model: ctx.model.Platform,
+                attributes: ['id', 'name']
+            },
+        ];
+        let orders = await ctx.model.Order.findAll(sqlParams);
         const result = [];
         orders.forEach(item => {
             let order = item.dataValues;
@@ -263,5 +265,6 @@ class OrderService extends Service {
         }
         return check;
     }
+
 }
 module.exports = OrderService;
