@@ -1,0 +1,32 @@
+<page-header-wrapper [title]="null" [breadcrumb]="breadcrumb">
+  <div nz-row [nzGutter]="8">
+    <div nz-col [nzSpan]="12">
+      <nz-card nzHoverable nzTitle="房间-利润" [nzExtra]="profit_r">
+        <ng-template #profit_r>
+          <nz-year-picker [(ngModel)]="profit_r_val" (ngModelChange)="changeProfitR()"></nz-year-picker>
+        </ng-template>
+        <nz-spin [nzSpinning]="profit_r_loading">
+          <div echarts [options]="profit_r_options"></div>
+        </nz-spin>
+      </nz-card>
+    </div>
+    <div nz-col [nzSpan]="12">
+      <nz-card nzHoverable nzTitle="平台-利润" [nzExtra]="profit_p">
+        <ng-template #profit_p>
+          <nz-year-picker [(ngModel)]="profit_p_val" (ngModelChange)="changeProfitP()"></nz-year-picker>
+        </ng-template>
+        <nz-spin [nzSpinning]="profit_p_loading">
+          <div echarts [options]="profit_p_options"></div>
+        </nz-spin>
+      </nz-card>
+    </div>
+  </div>
+</page-header-wrapper>
+<ng-template #breadcrumb>
+  <nz-breadcrumb>
+    <nz-breadcrumb-item><a [routerLink]="''">首页</a></nz-breadcrumb-item>
+    <nz-breadcrumb-item><a [routerLink]="'/chart'">图表</a></nz-breadcrumb-item>
+    <nz-breadcrumb-item><a [routerLink]="'/chart/room'">统计</a></nz-breadcrumb-item>
+    <nz-breadcrumb-item>统计</nz-breadcrumb-item>
+  </nz-breadcrumb>
+</ng-template>

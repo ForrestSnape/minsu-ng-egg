@@ -206,5 +206,6 @@
   "menu.order": "订单",
   "menu.order.manager": "订单管理",
   "menu.chart": "图表",
-  "menu.chart.room": "房间"
+  "menu.chart.room": "房间",
+  "menu.chart.statistic": "统计"
 }

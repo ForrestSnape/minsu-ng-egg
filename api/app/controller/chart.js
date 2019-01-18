@@ -33,6 +33,26 @@ class ChartController extends Controller {
         };
         ctx.status = 200;
     }
+
+    async profitR() {
+        const ctx = this.ctx;
+        const res = await ctx.service.chart.profitR(ctx.query);
+        ctx.body = {
+            code: 0,
+            data: res
+        };
+        ctx.status = 200;
+    }
+
+    async profitP() {
+        const ctx = this.ctx;
+        const res = await ctx.service.chart.profitP(ctx.query);
+        ctx.body = {
+            code: 0,
+            data: res
+        };
+        ctx.status = 200;
+    }
 }
 
 module.exports = ChartController;

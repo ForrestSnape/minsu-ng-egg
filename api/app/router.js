@@ -28,4 +28,6 @@ module.exports = app => {
   router.get('/chart/orderM', controller.chart.orderM);
   router.get('/chart/platformMY', controller.chart.platformMY);
   router.get('/chart/orderY', controller.chart.orderY);
+  router.get('/chart/profitR', controller.chart.profitR);
+  router.get('/chart/profitP', controller.chart.profitP);
 };

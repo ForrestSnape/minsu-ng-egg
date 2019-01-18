@@ -111,8 +111,7 @@ export class ChartRoomComponent implements OnInit {
       ],
       yAxis: [
         {
-          type: 'value',
-          name: '单位(元)'
+          type: 'value'
         }
       ],
       series: [
@@ -213,7 +212,7 @@ export class ChartRoomComponent implements OnInit {
       ],
       yAxis: [
         {
-          type: 'value',
+          type: 'value'
         }
       ],
       series: [

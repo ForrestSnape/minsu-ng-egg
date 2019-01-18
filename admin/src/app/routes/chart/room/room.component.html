@@ -1,47 +1,59 @@
 <page-header-wrapper [title]="null" [breadcrumb]="breadcrumb" [tab]="phTab">
   <ng-template #phTab class>
     <nz-tabset *ngIf="rooms" [nzSelectedIndex]="pos">
-      <nz-tab *ngFor="let room of rooms" [nzTitle]="room.name" (click)="changeRoom(room.id)"></nz-tab>
+      <nz-tab *ngFor="let room of rooms" [nzTitle]="room.name" (nzClick)="changeRoom(room.id)"></nz-tab>
     </nz-tabset>
   </ng-template>
-  <nz-card [nzExtra]="order_m">
-    <ng-template #order_m>
-      <nz-month-picker [(ngModel)]="order_m_val" (ngModelChange)="changeOrderM()"></nz-month-picker>
-    </ng-template>
-    <nz-spin [nzSpinning]="order_m_loading">
-      <div echarts [options]="order_m_options"></div>
-    </nz-spin>
-  </nz-card>
-  <nz-card [nzExtra]="platform_m">
-    <ng-template #platform_m>
-      <nz-month-picker [(ngModel)]="platform_m_val" (ngModelChange)="changePlatformM()"></nz-month-picker>
-    </ng-template>
-    <nz-spin [nzSpinning]="platform_m_loading">
-      <div echarts [options]="platform_m_options"></div>
-    </nz-spin>
-  </nz-card>
-  <nz-card [nzExtra]="order_y">
-    <ng-template #order_y>
-      <nz-year-picker [(ngModel)]="order_y_val" (ngModelChange)="changeOrderY()"></nz-year-picker>
-    </ng-template>
-    <nz-spin [nzSpinning]="order_y_loading">
-      <div echarts [options]="order_y_options"></div>
-    </nz-spin>
-  </nz-card>
-  <nz-card [nzExtra]="platform_y">
-    <ng-template #platform_y>
-      <nz-year-picker [(ngModel)]="platform_y_val" (ngModelChange)="changePlatformY()"></nz-year-picker>
-    </ng-template>
-    <nz-spin [nzSpinning]="platform_y_loading">
-      <div echarts [options]="platform_y_options"></div>
-    </nz-spin>
-  </nz-card>
+  <div nz-row [nzGutter]="8">
+    <div nz-col [nzSpan]="12">
+      <nz-card nzHoverable nzTitle="订单-月" [nzExtra]="order_m">
+        <ng-template #order_m>
+          <nz-month-picker [(ngModel)]="order_m_val" (ngModelChange)="changeOrderM()"></nz-month-picker>
+        </ng-template>
+        <nz-spin [nzSpinning]="order_m_loading">
+          <div echarts [options]="order_m_options"></div>
+        </nz-spin>
+      </nz-card>
+    </div>
+    <div nz-col [nzSpan]="12">
+      <nz-card nzHoverable nzTitle="平台-月" [nzExtra]="platform_m">
+        <ng-template #platform_m>
+          <nz-month-picker [(ngModel)]="platform_m_val" (ngModelChange)="changePlatformM()"></nz-month-picker>
+        </ng-template>
+        <nz-spin [nzSpinning]="platform_m_loading">
+          <div echarts [options]="platform_m_options"></div>
+        </nz-spin>
+      </nz-card>
+    </div>
+  </div>
+  <div nz-row [nzGutter]="8">
+    <div nz-col [nzSpan]="12">
+      <nz-card nzHoverable nzTitle="订单-年" [nzExtra]="order_y">
+        <ng-template #order_y>
+          <nz-year-picker [(ngModel)]="order_y_val" (ngModelChange)="changeOrderY()"></nz-year-picker>
+        </ng-template>
+        <nz-spin [nzSpinning]="order_y_loading">
+          <div echarts [options]="order_y_options"></div>
+        </nz-spin>
+      </nz-card>
+    </div>
+    <div nz-col [nzSpan]="12">
+      <nz-card nzHoverable nzTitle="平台-年" [nzExtra]="platform_y">
+        <ng-template #platform_y>
+          <nz-year-picker [(ngModel)]="platform_y_val" (ngModelChange)="changePlatformY()"></nz-year-picker>
+        </ng-template>
+        <nz-spin [nzSpinning]="platform_y_loading">
+          <div echarts [options]="platform_y_options"></div>
+        </nz-spin>
+      </nz-card>
+    </div>
+  </div>
 </page-header-wrapper>
 <ng-template #breadcrumb>
   <nz-breadcrumb>
     <nz-breadcrumb-item><a [routerLink]="''">首页</a></nz-breadcrumb-item>
     <nz-breadcrumb-item><a [routerLink]="'/chart'">图表</a></nz-breadcrumb-item>
     <nz-breadcrumb-item><a [routerLink]="'/chart/room'">房间</a></nz-breadcrumb-item>
-    <nz-breadcrumb-item>房间统计</nz-breadcrumb-item>
+    <nz-breadcrumb-item>房间</nz-breadcrumb-item>
   </nz-breadcrumb>
 </ng-template>

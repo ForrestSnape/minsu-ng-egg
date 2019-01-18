@@ -58,6 +58,10 @@ export class MenuConfig {
                         text: 'Chart Room',
                         link: '/chart/room',
                         i18n: 'menu.chart.room'
+                    }, {
+                        text: 'Chart Statistic',
+                        link: '/chart/statistic',
+                        i18n: 'menu.chart.statistic'
                     }]
                 }]
             },

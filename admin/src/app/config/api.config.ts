@@ -61,6 +61,8 @@ export class ApiConfig {
                 orderM: this.apiAddr + '/chart/orderM',
                 platformMY: this.apiAddr + '/chart/platformMY',
                 orderY: this.apiAddr + '/chart/orderY',
+                profitR: this.apiAddr + '/chart/profitR',
+                profitP: this.apiAddr + '/chart/profitP',
             }
         }
     }
