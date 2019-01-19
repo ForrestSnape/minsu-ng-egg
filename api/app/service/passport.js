@@ -36,6 +36,7 @@ class PassportService extends Service {
     // 注册
     async register(params) {
         const ctx = this.ctx;
+        console.log(params)
         if (!(params.username && /^[A-Za-z0-9]+$/.test(params.username))) return {
             status: false,
             msg: '账户格式不正确'

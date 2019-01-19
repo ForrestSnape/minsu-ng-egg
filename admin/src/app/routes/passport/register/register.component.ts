@@ -30,6 +30,10 @@ export class UserRegisterComponent implements OnDestroy {
       password: [null],
       invite_code: [null]
     });
+    // this.http.post(this.apiConfig.urls.passport.register, this.form.value)
+    // .subscribe((res: any) => {
+    //   console.dir(res)
+    // });
   }
 
 
@@ -43,6 +47,7 @@ export class UserRegisterComponent implements OnDestroy {
       this.msg.warning(check.msg);
       return;
     }
+    console.dir(this.apiConfig.urls.passport.register)
     this.http.post(this.apiConfig.urls.passport.register, this.form.value)
       .subscribe((res: any) => {
         console.dir(res)
