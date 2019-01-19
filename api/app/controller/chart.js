@@ -53,6 +53,26 @@ class ChartController extends Controller {
         };
         ctx.status = 200;
     }
+
+    async roomPlatform() {
+        const ctx = this.ctx;
+        const res = await ctx.service.chart.roomPlatform(ctx.query);
+        ctx.body = {
+            code: 0,
+            data: res
+        };
+        ctx.status = 200;
+    }
+
+    async roomOrder() {
+        const ctx = this.ctx;
+        const res = await ctx.service.chart.roomOrder(ctx.query);
+        ctx.body = {
+            code: 0,
+            data: res
+        };
+        ctx.status = 200;
+    }
 }
 
 module.exports = ChartController;

@@ -1,4 +1,4 @@
-<page-header-wrapper [title]="null" [breadcrumb]="breadcrumb">
+<page-header-wrapper [title]="'订单详情'" [breadcrumb]="breadcrumb">
   <nz-card [nzBordered]="false" *ngIf="order" [nzLoading]="loading">
     <sv-container size="large" title="订单信息">
       <sv label="日期">{{order.begin | date:"yyyy-MM-dd"}} 到 {{order.end | date:"yyyy-MM-dd"}}</sv>
@@ -31,6 +31,5 @@
     <nz-breadcrumb-item><a [routerLink]="''">首页</a></nz-breadcrumb-item>
     <nz-breadcrumb-item><a [routerLink]="'/order'">订单</a></nz-breadcrumb-item>
     <nz-breadcrumb-item><a [routerLink]="'/order'">订单管理</a></nz-breadcrumb-item>
-    <nz-breadcrumb-item>订单详情</nz-breadcrumb-item>
   </nz-breadcrumb>
 </ng-template>

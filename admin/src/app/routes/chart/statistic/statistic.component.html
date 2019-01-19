@@ -1,7 +1,7 @@
-<page-header-wrapper [title]="null" [breadcrumb]="breadcrumb">
+<page-header-wrapper [title]="'统计'" [breadcrumb]="breadcrumb">
   <div nz-row [nzGutter]="8">
     <div nz-col [nzSpan]="12">
-      <nz-card nzHoverable nzTitle="房间-利润" [nzExtra]="profit_r">
+      <nz-card nzHoverable nzTitle="房间-年利润" [nzExtra]="profit_r">
         <ng-template #profit_r>
           <nz-year-picker [(ngModel)]="profit_r_val" (ngModelChange)="changeProfitR()"></nz-year-picker>
         </ng-template>
@@ -11,7 +11,7 @@
       </nz-card>
     </div>
     <div nz-col [nzSpan]="12">
-      <nz-card nzHoverable nzTitle="平台-利润" [nzExtra]="profit_p">
+      <nz-card nzHoverable nzTitle="平台-年利润" [nzExtra]="profit_p">
         <ng-template #profit_p>
           <nz-year-picker [(ngModel)]="profit_p_val" (ngModelChange)="changeProfitP()"></nz-year-picker>
         </ng-template>
@@ -21,12 +21,45 @@
       </nz-card>
     </div>
   </div>
+  <div nz-row [nzGutter]="8">
+    <div nz-col [nzSpan]="12">
+      <nz-card nzHoverable nzTitle="房间-平台-利润" [nzExtra]="room_platform">
+        <ng-template #room_platform>
+          <nz-radio-group [(ngModel)]="room_platform_select_type" (click)="changeRPSType()">
+            <label nz-radio-button nzValue="month">月</label>
+            <label nz-radio-button nzValue="year">年</label>
+            <label nz-radio-button nzValue="">总</label>
+          </nz-radio-group>
+          <nz-month-picker *ngIf="room_platform_select_type === 'month'" [(ngModel)]="room_platform_val"
+            (ngModelChange)="getRoomPlatform()"></nz-month-picker>
+          <nz-year-picker *ngIf="room_platform_select_type === 'year'" [(ngModel)]="room_platform_val" (ngModelChange)="getRoomPlatform()"></nz-year-picker>
+        </ng-template>
+        <st #r_p_st [data]="room_platform_data" [columns]="room_platform_columns" [loading]="room_platform_loading"
+          [page]="page">
+        </st>
+      </nz-card>
+    </div>
+    <div nz-col [nzSpan]="12">
+      <nz-card nzHoverable nzTitle="房间-订单-统计" [nzExtra]="room_order">
+        <ng-template #room_order>
+          <nz-radio-group [(ngModel)]="room_order_select_type" (click)="changeROSType()">
+            <label nz-radio-button nzValue="month">月</label>
+            <label nz-radio-button nzValue="year">年</label>
+            <label nz-radio-button nzValue="">总</label>
+          </nz-radio-group>
+          <nz-month-picker *ngIf="room_order_select_type === 'month'" [(ngModel)]="room_order_val" (ngModelChange)="getRoomOrder()"></nz-month-picker>
+          <nz-year-picker *ngIf="room_order_select_type === 'year'" [(ngModel)]="room_order_val" (ngModelChange)="getRoomOrder()"></nz-year-picker>
+        </ng-template>
+        <st #r_o_st [data]="room_order_data" [columns]="room_order_columns" [loading]="room_order_loading" [page]="page">
+        </st>
+      </nz-card>
+    </div>
+  </div>
 </page-header-wrapper>
 <ng-template #breadcrumb>
   <nz-breadcrumb>
     <nz-breadcrumb-item><a [routerLink]="''">首页</a></nz-breadcrumb-item>
     <nz-breadcrumb-item><a [routerLink]="'/chart'">图表</a></nz-breadcrumb-item>
     <nz-breadcrumb-item><a [routerLink]="'/chart/room'">统计</a></nz-breadcrumb-item>
-    <nz-breadcrumb-item>统计</nz-breadcrumb-item>
   </nz-breadcrumb>
 </ng-template>

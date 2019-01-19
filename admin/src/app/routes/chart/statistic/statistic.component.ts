@@ -1,7 +1,8 @@
-import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef, ViewChild } from '@angular/core';
 import { _HttpClient } from '@delon/theme';
 import { ApiConfig } from 'app/config/api.config';
 import { FunctionService } from '@shared/service/function.service';
+import { STData, STComponent, STColumn, STPage } from '@delon/abc';
 
 @Component({
   selector: 'chart-statistic',
@@ -16,6 +17,26 @@ export class ChartStatisticComponent implements OnInit {
   profit_p_loading: boolean = true;
   profit_p_options: any;
 
+  room_platform_val: Date = new Date();
+  room_platform_select_type: string = 'month';
+  room_platform_loading: boolean = true;
+  @ViewChild('r_p_st')
+  private r_p_st: STComponent;
+  room_platform_data: STData = [];
+  room_platform_columns: STColumn[] = [{ title: '', index: '' }];
+
+  room_order_val: Date = new Date();
+  room_order_select_type: string = 'month';
+  room_order_loading: boolean = true;
+  @ViewChild('r_o_st')
+  private r_o_st: STComponent;
+  room_order_data: STData = [];
+  room_order_columns: STColumn[] = [{ title: '', index: '' }];
+
+  page: STPage = {
+    show: false
+  };
+
   constructor(
     private http: _HttpClient,
     private apiConfig: ApiConfig,
@@ -25,6 +46,8 @@ export class ChartStatisticComponent implements OnInit {
 
   ngOnInit() {
     this.initChart();
+    this.getRoomPlatform();
+    this.getRoomOrder();
   }
 
   initChart() {
@@ -45,13 +68,17 @@ export class ChartStatisticComponent implements OnInit {
   }
 
   setProfitROptions(data) {
+    let tooltipFormatterData = '';
+    for (let i = 0; i < data.length; i++) {
+      tooltipFormatterData += `{a${i}}: {c${i}}<br>`;
+    }
     const legendData = data.map(item => item.room.name);
     const seriesData = data.map(item => ({ name: item.room.name, type: 'line', data: item.profit }));
     this.profit_r_options = {
       color: ['#67E0E3', '#FFDB5C', '#1890FF', '#35AC84', '#FF9F7F', '#E7BCF3', '#9D96F5', '#96BFFF'],
       tooltip: {
         trigger: 'axis',
-        formatter: '{a0}: {c0}'
+        formatter: tooltipFormatterData
       },
       legend: {
         data: legendData
@@ -84,13 +111,17 @@ export class ChartStatisticComponent implements OnInit {
   }
 
   setProfitPOptions(data) {
+    let tooltipFormatterData = '';
+    for (let i = 0; i < data.length; i++) {
+      tooltipFormatterData += `{a${i}}: {c${i}}<br>`;
+    }
     const legendData = data.map(item => item.platform.name);
     const seriesData = data.map(item => ({ name: item.platform.name, type: 'line', data: item.profit }));
     this.profit_p_options = {
       color: ['#67E0E3', '#FFDB5C', '#1890FF', '#35AC84', '#FF9F7F', '#E7BCF3', '#9D96F5', '#96BFFF'],
       tooltip: {
         trigger: 'axis',
-        formatter: '{a0}: {c0}'
+        formatter: tooltipFormatterData
       },
       legend: {
         data: legendData
@@ -110,5 +141,54 @@ export class ChartStatisticComponent implements OnInit {
     };
   }
 
+  changeRPSType() {
+    this.getRoomPlatform();
+  }
+
+  getRoomPlatform() {
+    let params = {};
+    switch (this.room_platform_select_type) {
+      case 'month':
+        params = this.func.getTimestampByType(this.room_platform_val, 'month');
+        break;
+      case 'year':
+        params = this.func.getTimestampByType(this.room_platform_val, 'year');
+        break;
+      default:
+        break;
+    }
+    this.http.get(this.apiConfig.urls.chart.roomPlatform, params)
+      .subscribe((res: any) => {
+        if (res.code === 0) {
+          this.room_platform_data = res.data.data;
+          this.room_platform_columns = res.data.columns;
+        }
+      })
+  }
+
+  changeROSType() {
+    this.getRoomOrder();
+  }
+
+  getRoomOrder() {
+    let params = {};
+    switch (this.room_order_select_type) {
+      case 'month':
+        params = this.func.getTimestampByType(this.room_order_val, 'month');
+        break;
+      case 'year':
+        params = this.func.getTimestampByType(this.room_order_val, 'year');
+        break;
+      default:
+        break;
+    }
+    this.http.get(this.apiConfig.urls.chart.roomOrder, params)
+      .subscribe((res: any) => {
+        if (res.code === 0) {
+          this.room_order_data = res.data.data;
+          this.room_order_columns = res.data.columns;
+        }
+      })
+  }
 
 }

@@ -63,6 +63,8 @@ export class ApiConfig {
                 orderY: this.apiAddr + '/chart/orderY',
                 profitR: this.apiAddr + '/chart/profitR',
                 profitP: this.apiAddr + '/chart/profitP',
+                roomPlatform: this.apiAddr + '/chart/roomPlatform',
+                roomOrder: this.apiAddr + '/chart/roomOrder',
             }
         }
     }

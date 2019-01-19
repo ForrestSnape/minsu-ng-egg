@@ -16,6 +16,11 @@ class ChartService extends Service {
                 $eq: params.room_id
             };
         }
+        if (params.platform_id) {
+            where.platform_id = {
+                $eq: params.platform_id
+            };
+        }
         if (params.begin) {
             where.begin = {
                 $gte: params.begin
@@ -209,6 +214,133 @@ class ChartService extends Service {
             })
         })
         return final;
+    }
+
+    async roomPlatform(params) {
+        const ctx = this.ctx;
+        let rooms = await ctx.model.Room.findAll({
+            where: {
+                user_id: ctx.session.user_id
+            }
+        });
+        rooms = rooms.map(room => room.dataValues);
+        let platforms = await ctx.model.Platform.findAll();
+        platforms = platforms.map(platform => platform.dataValues);
+        const columns = [{
+            title: '',
+            index: 'room_name',
+            className: 'text-center'
+        }];
+        platforms.map(platform => {
+            columns.push({
+                title: platform.name,
+                index: `platform_${platform.id}`,
+                className: 'text-center'
+            });
+        });
+        columns.push({
+            title: '合计',
+            index: `room_all`,
+            className: 'text-center'
+        });
+        let r_p = [];
+        rooms.map(room => {
+            platforms.map(platform => {
+                r_p.push({
+                    room_id: room.id,
+                    platform_id: platform.id
+                });
+            })
+        });
+        let r_p_p = [];
+        for (let i = 0; i < r_p.length; i++) {
+            let orders = await this.orders({ ...params,
+                ...r_p[i]
+            });
+            orders = orders.map(order => order.dataValues);
+            let profit = 0;
+            orders.map(order => {
+                profit += Number(order.profit);
+            });
+            r_p_p[i] = { ...r_p[i],
+                profit: profit
+            };
+        }
+        const ret = [];
+        rooms.map(room => {
+            let temp = {
+                room_name: room.name
+            };
+            let room_all = 0;
+            r_p_p.filter(item => item.room_id === room.id).map(item => {
+                temp[`platform_${item.platform_id}`] = item.profit;
+                room_all += Number(item.profit);
+            });
+            temp.room_all = room_all;
+            ret.push(temp);
+        });
+        return {
+            columns: columns,
+            data: ret
+        };
+    }
+
+    async roomOrder(params) {
+        const ctx = this.ctx;
+        let rooms = await ctx.model.Room.findAll({
+            where: {
+                user_id: ctx.session.user_id
+            }
+        });
+        rooms = rooms.map(room => room.dataValues);
+        const columns = [{
+            title: '',
+            index: 'room_name',
+            className: 'text-center'
+        }, {
+            title: '订单数',
+            index: 'num',
+            className: 'text-center'
+        }, {
+            title: '天数',
+            index: 'days',
+            className: 'text-center'
+        }, {
+            title: '订单金额',
+            index: 'total',
+            className: 'text-center'
+        }, {
+            title: '利润',
+            index: 'profit',
+            className: 'text-center'
+        }];
+        const ret = [];
+        for (let i = 0; i < rooms.length; i++) {
+            let orders = await this.orders({ ...params,
+                room_id: rooms[i].id
+            });
+            orders = orders.map(order => order.dataValues);
+            let num = orders.length;
+            let days = 0;
+            let total = 0;
+            let profit = 0;
+            orders.map(order => {
+                days += Number(order.days);
+                total += Number(order.total);
+                profit += Number(order.profit);
+            })
+            ret.push({
+                room_name: rooms[i].name,
+                num: num,
+                days: days,
+                total: total,
+                profit: profit
+            });
+        }
+        return {
+            columns: columns,
+            data: ret
+        };
     }
 }
 module.exports = ChartService;
