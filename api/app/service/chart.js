@@ -102,8 +102,8 @@ class ChartService extends Service {
             });
             ret.num.push(num);
             ret.days.push(days);
-            ret.total.push(total);
-            ret.profit.push(profit);
+            ret.total.push(total.toFixed(2));
+            ret.profit.push(profit.toFixed(2));
         }
         return ret;
     }
@@ -140,7 +140,7 @@ class ChartService extends Service {
                         id: room.id,
                         name: room.name
                     },
-                    profit: profit
+                    profit: profit.toFixed(2)
                 });
             })
             ret.push(temp);
@@ -192,7 +192,7 @@ class ChartService extends Service {
                         id: platform.id,
                         name: platform.name
                     },
-                    profit: profit
+                    profit: profit.toFixed(2)
                 });
             })
             ret.push(temp);
@@ -263,7 +263,7 @@ class ChartService extends Service {
                 profit += Number(order.profit);
             });
             r_p_p[i] = { ...r_p[i],
-                profit: profit
+                profit: profit.toFixed(2)
             };
         }
         const ret = [];
@@ -276,7 +276,7 @@ class ChartService extends Service {
                 temp[`platform_${item.platform_id}`] = item.profit;
                 room_all += Number(item.profit);
             });
-            temp.room_all = room_all;
+            temp.room_all = room_all.toFixed(2);
             ret.push(temp);
         });
         return {
@@ -333,8 +333,8 @@ class ChartService extends Service {
                 room_name: rooms[i].name,
                 num: num,
                 days: days,
-                total: total,
-                profit: profit
+                total: total.toFixed(2),
+                profit: profit.toFixed(2)
             });
         }
         return {
