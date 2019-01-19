@@ -57,7 +57,8 @@ import {
   PlusOutline,
   MoneyCollectOutline,
   DollarOutline,
-  LineChartOutline
+  LineChartOutline,
+  HeartOutline
 } from '@ant-design/icons-angular/icons';
 
 export const ICONS_AUTO = [
@@ -114,5 +115,6 @@ export const ICONS_AUTO = [
   PlusOutline,
   MoneyCollectOutline,
   DollarOutline,
-  LineChartOutline
+  LineChartOutline,
+  HeartOutline
 ];

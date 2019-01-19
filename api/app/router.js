@@ -10,7 +10,8 @@ module.exports = app => {
   } = app;
   router.get('/', controller.home.index);
   router.get('/start', controller.home.start);
-  router.post('/login', controller.passport.login);
+  router.all('/login', controller.passport.login);
+  router.all('/register', controller.passport.register);
   router.post('/user/changeNickname', controller.user.changeNickname);
   router.post('/user/changePassword', controller.user.changePassword);
   router.get('/room/list', controller.room.list);

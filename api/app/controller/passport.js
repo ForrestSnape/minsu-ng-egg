@@ -4,11 +4,23 @@ const Controller = require('egg').Controller;
 
 class PassportController extends Controller {
     async login() {
-        const check = await this.ctx.service.passport.login(this.ctx.request.body);
-        this.ctx.body = {
+        const ctx = this.ctx;
+        const check = await ctx.service.passport.login(ctx.request.body);
+        ctx.body = {
             code: 0,
             data: check
         };
+        ctx.status = 200;
+    }
+
+    async register() {
+        const ctx = this.ctx;
+        const res = await ctx.service.passport.register(ctx.request.body);
+        ctx.body = {
+            code: 0,
+            data: res
+        };
+        ctx.status = 200;
     }
 }
 

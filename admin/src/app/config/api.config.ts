@@ -17,7 +17,8 @@ export class ApiConfig {
             start: this.apiAddr + '/start',
 
             passport: {
-                login: this.apiAddr + '/login'
+                login: this.apiAddr + '/login',
+                register: this.apiAddr + '/register',
             },
 
             // 用户相关
