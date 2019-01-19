@@ -1,21 +1,39 @@
 <nz-dropdown nzPlacement="bottomRight">
   <div class="alain-pro__header-item" nz-dropdown>
-    <nz-avatar [nzSrc]="settings.user.avatar" nzSize="small" class="mr-sm"></nz-avatar>
-    {{settings.user.name}}
+    <!-- <nz-avatar [nzSrc]="settings.user.avatar" nzSize="small" class="mr-sm"></nz-avatar> -->
+    <b>{{settings.user.nickname}}</b>
   </div>
   <div nz-menu class="width-sm">
-    <div nz-menu-item routerLink="/pro/account/center"><i nz-icon type="user" class="mr-sm"></i>
+    <!-- <div nz-menu-item routerLink="/pro/account/center"><i nz-icon type="user" class="mr-sm"></i>
       {{ 'menu.account.center' | translate }}
+    </div> -->
+    <div nz-menu-item (click)="changeNickname()"><i nz-icon type="edit" class="mr-sm"></i>
+      修改昵称
     </div>
-    <div nz-menu-item routerLink="/pro/account/settings"><i nz-icon type="setting" class="mr-sm"></i>
-      {{ 'menu.account.settings' | translate }}
+    <div nz-menu-item (click)="changePassword()"><i nz-icon type="setting" class="mr-sm"></i>
+      修改密码
     </div>
-    <div nz-menu-item routerLink="/exception/trigger"><i nz-icon type="close-circle" class="mr-sm"></i>
+    <!-- <div nz-menu-item routerLink="/exception/trigger"><i nz-icon type="close-circle" class="mr-sm"></i>
       {{ 'menu.account.trigger' | translate }}
-    </div>
+    </div> -->
     <li nz-menu-divider></li>
     <div nz-menu-item (click)="logout()"><i nz-icon type="logout" class="mr-sm"></i>
-      {{ 'menu.account.logout' | translate }}
+      退出登录
     </div>
   </div>
 </nz-dropdown>
+<nz-modal [(nzVisible)]="cnVisible" nzTitle="修改昵称" (nzOnCancel)="cnCancel()" (nzOnOk)="cnOk()" [nzOkLoading]="cnOkLoading">
+  <nz-input-group nzAddOnBefore="昵称">
+    <input type="text" nz-input [(ngModel)]="nickname">
+  </nz-input-group>
+</nz-modal>
+<nz-modal [(nzVisible)]="cpVisible" nzTitle="修改密码" (nzOnCancel)="cpCancel()" (nzOnOk)="cpOk()" [nzOkLoading]="cpLoading">
+  <div style="margin-bottom: 16px;">
+    <nz-input-group nzAddOnBefore="原密码">
+      <input type="password" nz-input [(ngModel)]="passwordOld">
+    </nz-input-group>
+  </div>
+  <nz-input-group nzAddOnBefore="新密码">
+    <input type="password" nz-input [(ngModel)]="password">
+  </nz-input-group>
+</nz-modal>

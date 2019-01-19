@@ -11,8 +11,8 @@ class HomeController extends Controller {
   async start() {
     const user = await this.ctx.service.passport.getUserById(this.ctx.session.user_id);
     const app = {
-      description: "内蒙古特色小镇-管理后台",
-      name: "内蒙古特色小镇"
+      description: "民宿助手",
+      name: "民宿助手"
     }
     this.ctx.body = {
       app: app,

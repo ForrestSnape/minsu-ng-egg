@@ -11,6 +11,8 @@ module.exports = app => {
   router.get('/', controller.home.index);
   router.get('/start', controller.home.start);
   router.post('/login', controller.passport.login);
+  router.post('/user/changeNickname', controller.user.changeNickname);
+  router.post('/user/changePassword', controller.user.changePassword);
   router.get('/room/list', controller.room.list);
   router.get('/room/detail', controller.room.detail);
   router.post('/room/add', controller.room.add);

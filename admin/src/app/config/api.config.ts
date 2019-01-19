@@ -20,10 +20,10 @@ export class ApiConfig {
                 login: this.apiAddr + '/login'
             },
 
-            // 上传相关
-            upload: {
-                img: this.apiAddr + '/api/v1/upload/img?bucket=admin',
-                file: this.apiAddr + '/api/v1/upload/file?bucket=admin',
+            // 用户相关
+            user: {
+                changeNickname: this.apiAddr + '/user/changeNickname',
+                changePassword: this.apiAddr + '/user/changePassword',
             },
 
             // 房间相关
