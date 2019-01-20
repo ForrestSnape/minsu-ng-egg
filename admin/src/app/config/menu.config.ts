@@ -17,51 +17,41 @@ export class MenuConfig {
         this.menu = [
             {
                 text: '主导航',
-                i18n: 'menu.main',
                 group: true,
                 hideInBreadcrumb: true,
                 children: [{
-                    text: 'Dashboard',
-                    i18n: 'menu.dashboard',
+                    text: '仪表盘',
                     icon: 'anticon anticon-dashboard',
                     children: [{
-                        text: 'Calendar',
+                        text: '日历',
                         link: '/dashboard/calendar',
-                        i18n: 'menu.dashboard.calendar'
                     }]
                 }, {
-                    text: 'Room',
+                    text: '房间',
                     link: '/room',
-                    i18n: 'menu.room',
                     icon: 'anticon anticon-home',
                     children: [{
-                        text: 'Room Manager',
+                        text: '房间管理',
                         link: '/room/list',
-                        i18n: 'menu.room.manager'
                     }]
                 }, {
-                    text: 'Order',
+                    text: '订单',
                     link: '/order',
-                    i18n: 'menu.order',
                     icon: 'anticon anticon-dollar',
                     children: [{
-                        text: 'Order Manager',
+                        text: '订单管理',
                         link: '/order/list',
-                        i18n: 'menu.order.manager'
                     }]
                 }, {
-                    text: 'Chart',
+                    text: '图表',
                     link: '/chart',
-                    i18n: 'menu.chart',
                     icon: 'anticon anticon-line-chart',
                     children: [{
-                        text: 'Chart Room',
+                        text: '房间',
                         link: '/chart/room',
-                        i18n: 'menu.chart.room'
                     }, {
-                        text: 'Chart Statistic',
+                        text: '统计',
                         link: '/chart/statistic',
-                        i18n: 'menu.chart.statistic'
                     }]
                 }]
             },

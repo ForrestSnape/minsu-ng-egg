@@ -30,14 +30,12 @@ export class DashboardCalendarComponent extends CalendarTheme implements OnInit,
   private loadEvents(time: Date) {
     this.http.get(this.apiConfig.urls.calendar.orders)
       .subscribe((res: any) => {
-        if (res.code === 0) {
-          this._executeOnStable(() => {
-            this.instance.addEventSource({
-              allDayDefault: true,
-              events: res.data,
-            });
+        this._executeOnStable(() => {
+          this.instance.addEventSource({
+            allDayDefault: true,
+            events: res,
           });
-        }
+        });
       });
   }
 

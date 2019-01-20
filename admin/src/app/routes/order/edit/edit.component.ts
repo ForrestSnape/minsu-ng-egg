@@ -61,44 +61,38 @@ export class OrderEditComponent implements OnInit {
   getOrder() {
     this.http.get(this.apiConfig.urls.order.detail, { id: this.id })
       .subscribe((res: any) => {
-        if (res.code === 0) {
-          this.order = res.data;
-          this.dates = this.func.getDateList(new Date(this.order.begin), new Date(this.order.end));
-          this.date_price = this.order.order_date_prices.map((item, i) => ({ ...item, name: `date_price_${i}` }));
-          const patchValues = {
-            room_id: String(this.order.room_id),
-            platform_id: String(this.order.platform_id),
-            date_range: [new Date(this.order.begin), new Date(this.order.end)],
-            total: this.order.total,
-            deduct: this.order.deduct,
-            profit: this.order.profit
-          };
-          this.date_price.forEach(item => {
-            // 表单添加字段
-            this.form.addControl(item.name, new FormControl());
-            // 给新加的字段赋值
-            patchValues[item.name] = item.price;
-          })
-          this.form.patchValue(patchValues)
-        }
+        this.order = res;
+        this.dates = this.func.getDateList(new Date(this.order.begin), new Date(this.order.end));
+        this.date_price = this.order.order_date_prices.map((item, i) => ({ ...item, name: `date_price_${i}` }));
+        const patchValues = {
+          room_id: String(this.order.room_id),
+          platform_id: String(this.order.platform_id),
+          date_range: [new Date(this.order.begin), new Date(this.order.end)],
+          total: this.order.total,
+          deduct: this.order.deduct,
+          profit: this.order.profit
+        };
+        this.date_price.forEach(item => {
+          // 表单添加字段
+          this.form.addControl(item.name, new FormControl());
+          // 给新加的字段赋值
+          patchValues[item.name] = item.price;
+        })
+        this.form.patchValue(patchValues)
       });
   }
 
   getRooms() {
     this.http.get(this.apiConfig.urls.room.list)
       .subscribe((res: any) => {
-        if (res.code === 0) {
-          this.rooms = res.data;
-        }
+        this.rooms = res;
       });
   }
 
   getPlatforms() {
     this.http.get(this.apiConfig.urls.platform.list)
       .subscribe((res: any) => {
-        if (res.code === 0) {
-          this.platforms = res.data;
-        }
+        this.platforms = res;
       });
   }
 
@@ -156,15 +150,13 @@ export class OrderEditComponent implements OnInit {
     params.days = this.date_price.length;
     this.http.post(this.apiConfig.urls.order.edit, params)
       .subscribe((res: any) => {
-        if (res.code === 0) {
-          if (res.data) {
-            this.msg.success('编辑订单成功', { nzDuration: 2000 });
-            setTimeout(() => this.router.navigateByUrl(`/order/list`), 2500);
-          } else {
-            this.msg.warning('编辑订单失败，您选择的日期内已有订单，请仔细核对');
-            this.submitting = false;
-          };
-        }
+        if (res) {
+          this.msg.success('编辑订单成功', { nzDuration: 2000 });
+          setTimeout(() => this.router.navigateByUrl(`/order/list`), 2500);
+        } else {
+          this.msg.warning('编辑订单失败，您选择的日期内已有订单，请仔细核对');
+          this.submitting = false;
+        };
       });
   }
 

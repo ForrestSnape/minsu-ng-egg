@@ -19,6 +19,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class RoomListComponent implements OnInit {
+  submitting: boolean = false;
   rooms: any;
   stars: Array<boolean> = [true, true, true, true, true];
   lol_addr: Array<string>;
@@ -48,16 +49,14 @@ export class RoomListComponent implements OnInit {
   getRooms() {
     this.http.get(this.apiConfig.urls.room.list)
       .subscribe((res: any) => {
-        if (res.code === 0) {
-          this.rooms = res.data.map(item => {
-            if (item.rent <= 0) item.rent = '租金没填，大约每月999999999999'
-            if (!item.address) item.address = `地址没填，大约位于 ${this.lol_addr[parseInt(String(Math.random() * 12))]}`;
-            return item;
-          });
-          this.rooms.push(null);
-          this.loading = false;
-          this.cd.detectChanges();
-        }
+        this.rooms = res.map(item => {
+          if (item.rent <= 0) item.rent = '租金没填，大约每月999999999999'
+          if (!item.address) item.address = `地址没填，大约位于 ${this.lol_addr[parseInt(String(Math.random() * 12))]}`;
+          return item;
+        });
+        this.rooms.push(null);
+        this.loading = false;
+        this.cd.detectChanges();
       });
   }
 
@@ -87,6 +86,7 @@ export class RoomListComponent implements OnInit {
   }
 
   addSubmit(form) {
+    this.submitting = true;
     const params = form.value;
     params.address = params.address ? params.address : '';
     params.photo = '';
@@ -94,14 +94,13 @@ export class RoomListComponent implements OnInit {
     params.description = '';
     this.http.post(this.apiConfig.urls.room.add, params)
       .subscribe((res: any) => {
-        if (res.code === 0) {
-          if (res.data) {
-            this.msg.success('新增房间成功');
-            this.addVisible = false;
-            this.getRooms();
-          } else {
-            this.msg.warning('房间名称重复，新增失败')
-          }
+        this.submitting = false;
+        if (res) {
+          this.msg.success('新增房间成功');
+          this.addVisible = false;
+          this.getRooms();
+        } else {
+          this.msg.warning('房间名称重复，新增失败')
         }
       })
   }
@@ -117,18 +116,18 @@ export class RoomListComponent implements OnInit {
 
   editRoom(id) {
     this.addVisible = false;
+    this.submitting = true;
     this.http.get(this.apiConfig.urls.room.detail, { id: id })
       .subscribe((res: any) => {
-        if (res.code === 0) {
-          const room = res.data;
-          this.edit_form.patchValue({
-            id: room.id,
-            name: room.name,
-            rent: room.rent,
-            address: room.address
-          })
-          this.editVisible = true;
-        }
+        this.submitting = false;
+        const room = res;
+        this.edit_form.patchValue({
+          id: room.id,
+          name: room.name,
+          rent: room.rent,
+          address: room.address
+        })
+        this.editVisible = true;
       })
   }
 
@@ -144,14 +143,12 @@ export class RoomListComponent implements OnInit {
     params.description = '';
     this.http.post(this.apiConfig.urls.room.edit, params)
       .subscribe((res: any) => {
-        if (res.code === 0) {
-          if (res.data) {
-            this.msg.success('编辑房间成功');
-            this.editVisible = false;
-            this.getRooms();
-          } else {
-            this.msg.warning('房间名称重复，编辑失败')
-          }
+        if (res) {
+          this.msg.success('编辑房间成功');
+          this.editVisible = false;
+          this.getRooms();
+        } else {
+          this.msg.warning('房间名称重复，编辑失败')
         }
       })
   }
@@ -162,14 +159,12 @@ export class RoomListComponent implements OnInit {
         this.loading = true;
         this.http.delete(this.apiConfig.urls.room.del, { id: id })
           .subscribe((res: any) => {
-            if (res.code === 0) {
-              if (res.data) {
-                this.msg.success('删除房间成功');
-                this.getRooms();
-              } else {
-                this.msg.warning('删除房间失败')
-              };
-            }
+            if (res) {
+              this.msg.success('删除房间成功');
+              this.getRooms();
+            } else {
+              this.msg.warning('删除房间失败')
+            };
           });
       } else {
         this.msg.warning('此房间下已有订单，无法删除')
@@ -181,9 +176,7 @@ export class RoomListComponent implements OnInit {
     return new Promise(resolve => {
       this.http.get(this.apiConfig.urls.room.hasOrder, { id: id })
         .subscribe((res: any) => {
-          if (res.code === 0) {
-            resolve(res.data)
-          }
+          resolve(res)
         });
     });
   }

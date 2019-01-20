@@ -9,15 +9,26 @@ class HomeController extends Controller {
 
   // alain初始化调用
   async start() {
-    const user = await this.ctx.service.passport.getUserById(this.ctx.session.user_id);
-    const app = {
-      description: "民宿助手",
-      name: "民宿助手"
+    const ctx = this.ctx;
+    try {
+      const user = await ctx.service.passport.getUserById(ctx.session.user_id);
+      const app = {
+        description: "民宿助手",
+        name: "民宿助手"
+      };
+      ctx.body = {
+        status: 0,
+        response: {
+          app: app,
+          user: user
+        }
+      };
+    } catch (e) {
+      ctx.body = {
+        status: -1,
+        msg: e.message
+      };
     }
-    this.ctx.body = {
-      app: app,
-      user: user
-    };
   }
 
 }

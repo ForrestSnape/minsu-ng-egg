@@ -6,7 +6,7 @@ module.exports = app => {
         INTEGER
     } = app.Sequelize;
 
-    const Invite = app.model.define('minsu_user', {
+    const Invite = app.model.define('minsu_invite', {
         id: {
             type: INTEGER,
             primaryKey: true,

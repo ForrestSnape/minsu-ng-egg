@@ -40,7 +40,7 @@ export class UserLoginComponent implements OnDestroy {
     private apiConfig: ApiConfig
   ) {
     this.form = fb.group({
-      username: [null, [Validators.required, Validators.minLength(5)]],
+      username: [null, [Validators.required]],
       password: [null, Validators.required],
     });
     modalSrv.closeAll();
@@ -95,19 +95,17 @@ export class UserLoginComponent implements OnDestroy {
     // 然一般来说登录请求不需要校验，因此可以在请求URL加上：`/login?_allow_anonymous=true` 表示不触发用户 Token 校验
     this.http.post(this.apiConfig.urls.passport.login, params)
       .subscribe((res: any) => {
-        if (res.code === 0) {
-          if (res.data) {
-            this.msg.success('登录成功');
-            // 清空路由复用信息
-            this.reuseTabService.clear();
-            // 设置用户Token信息
-            this.tokenService.set({ token: '123' });
-            // 重新获取 StartupService 内容，我们始终认为应用信息一般都会受当前用户授权范围而影响
-            this.startupSrv.load().then(() => this.router.navigate(['/']));
-          }
-          else {
-            this.msg.error('用户名或密码错误！');
-          }
+        if (res) {
+          this.msg.success('登录成功');
+          // 清空路由复用信息
+          this.reuseTabService.clear();
+          // 设置用户Token信息
+          this.tokenService.set({ token: '123' });
+          // 重新获取 StartupService 内容，我们始终认为应用信息一般都会受当前用户授权范围而影响
+          this.startupSrv.load().then(() => this.router.navigate(['/']));
+        }
+        else {
+          this.msg.error('用户名或密码错误！');
         }
       });
   }

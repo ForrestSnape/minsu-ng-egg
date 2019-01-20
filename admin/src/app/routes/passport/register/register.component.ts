@@ -30,16 +30,7 @@ export class UserRegisterComponent implements OnDestroy {
       password: [null],
       invite_code: [null]
     });
-    // this.http.post(this.apiConfig.urls.passport.register, this.form.value)
-    // .subscribe((res: any) => {
-    //   console.dir(res)
-    // });
   }
-
-
-
-
-  // #endregion
 
   submit() {
     const check = this.check(this.form.value);
@@ -47,10 +38,15 @@ export class UserRegisterComponent implements OnDestroy {
       this.msg.warning(check.msg);
       return;
     }
-    console.dir(this.apiConfig.urls.passport.register)
     this.http.post(this.apiConfig.urls.passport.register, this.form.value)
       .subscribe((res: any) => {
-        console.dir(res)
+        if (res.status) {
+          this.msg.success('注册成功');
+          this.router.navigateByUrl('/passport/login');
+        } else {
+          this.msg.warning(res.msg);
+          return;
+        }
       });
   }
 

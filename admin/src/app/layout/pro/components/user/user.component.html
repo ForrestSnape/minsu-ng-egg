@@ -27,7 +27,7 @@
     <input type="text" nz-input [(ngModel)]="nickname">
   </nz-input-group>
 </nz-modal>
-<nz-modal [(nzVisible)]="cpVisible" nzTitle="修改密码" (nzOnCancel)="cpCancel()" (nzOnOk)="cpOk()" [nzOkLoading]="cpLoading">
+<nz-modal [(nzVisible)]="cpVisible" nzTitle="修改密码" (nzOnCancel)="cpCancel()" (nzOnOk)="cpOk()" [nzOkLoading]="cpOkLoading">
   <div style="margin-bottom: 16px;">
     <nz-input-group nzAddOnBefore="原密码">
       <input type="password" nz-input [(ngModel)]="passwordOld">

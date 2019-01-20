@@ -36,7 +36,6 @@ class PassportService extends Service {
     // 注册
     async register(params) {
         const ctx = this.ctx;
-        console.log(params)
         if (!(params.username && /^[A-Za-z0-9]+$/.test(params.username))) return {
             status: false,
             msg: '账户格式不正确'
@@ -53,14 +52,23 @@ class PassportService extends Service {
             status: false,
             msg: '邀请码必填'
         };
-        const invite = ctx.model.Invite.findOne({
+        const user = await ctx.model.User.findOne({
+            where: {
+                username: params.username
+            }
+        });
+        if (user) return {
+            status: false,
+            msg: '用户名已存在'
+        };
+        const invite = await ctx.model.Invite.findOne({
             where: {
                 invite_code: params.invite_code
             }
         });
         if (!invite) return {
             status: false,
-            msg: '邀请码不正确'
+            msg: '邀请码不存在'
         };
         if (invite.user_id > 0) return {
             status: false,

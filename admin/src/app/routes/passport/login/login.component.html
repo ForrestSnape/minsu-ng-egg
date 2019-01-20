@@ -1,5 +1,5 @@
 <form nz-form [formGroup]="form" (ngSubmit)="submit()" role="form">
-  <nz-tabset [nzAnimated]="false" class="tabs" (nzSelectChange)="switch($event)">
+  <nz-tabset [nzAnimated]="false" class="tabs">
     <nz-tab [nzTitle]="'账户密码登录'">
       <nz-alert *ngIf="error" [nzType]="'error'" [nzMessage]="error" [nzShowIcon]="true" class="mb-lg"></nz-alert>
       <nz-form-item>
@@ -31,6 +31,6 @@
   </nz-form-item>
 </form>
 <div class="other">
-  <a class="forgot" (click)="msg.error('手动再见！')">忘记密码</a>
+  <a class="forgot" (click)="msg.warning('手动再见！')">忘记密码</a>
   <a class="register" routerLink="/passport/register">注册账户</a>
 </div>

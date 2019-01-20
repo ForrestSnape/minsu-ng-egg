@@ -83,7 +83,7 @@ export class BrandService {
   }
 
   get onlyIcon() {
-    return this.layout.onlyIcon;
+    return this.menu === 'side' ? false : this.layout.onlyIcon;
   }
 
   /** Whether the top menu */

@@ -42,11 +42,9 @@ export class ChartRoomComponent implements OnInit {
   getRooms() {
     this.http.get(this.apiConfig.urls.room.list)
       .subscribe((res: any) => {
-        if (res.code === 0) {
-          this.rooms = res.data;
-          this.cur_room_id = this.rooms[0].id;
-          this.changeRoom(this.cur_room_id);
-        }
+        this.rooms = res;
+        this.cur_room_id = this.rooms[0].id;
+        this.changeRoom(this.cur_room_id);
       });
   }
 
@@ -70,11 +68,10 @@ export class ChartRoomComponent implements OnInit {
     const { begin, end } = this.func.getTimestampByType(this.order_m_val, 'month');
     this.http.get(this.apiConfig.urls.chart.orderM, { room_id: this.cur_room_id, begin: begin, end: end })
       .subscribe((res: any) => {
-        if (res.code === 0) {
-          this.setOrderMOptions(res.data);
-          this.order_m_loading = false;
-          this.cd.detectChanges();
-        }
+        this.order_m_loading = false;
+        this.setOrderMOptions(res);
+        this.order_m_loading = false;
+        this.cd.detectChanges();
       });
   }
 
@@ -144,11 +141,10 @@ export class ChartRoomComponent implements OnInit {
     const { begin, end } = this.func.getTimestampByType(this.platform_m_val, 'month');
     this.http.get(this.apiConfig.urls.chart.platformMY, { room_id: this.cur_room_id, begin: begin, end: end })
       .subscribe((res: any) => {
-        if (res.code === 0) {
-          this.setPlatformMOptions(res.data);
-          this.platform_m_loading = false;
-          this.cd.detectChanges();
-        }
+        this.platform_m_loading = false;
+        this.setPlatformMOptions(res);
+        this.platform_m_loading = false;
+        this.cd.detectChanges();
       });
   }
 
@@ -186,11 +182,10 @@ export class ChartRoomComponent implements OnInit {
     const year = this.order_y_val.getFullYear();
     this.http.get(this.apiConfig.urls.chart.orderY, { room_id: this.cur_room_id, year: year })
       .subscribe((res: any) => {
-        if (res.code === 0) {
-          this.setOrderYOptions(res.data);
-          this.order_y_loading = false;
-          this.cd.detectChanges();
-        }
+        this.order_y_loading = false;
+        this.setOrderYOptions(res);
+        this.order_y_loading = false;
+        this.cd.detectChanges();
       });
   }
 
@@ -245,11 +240,10 @@ export class ChartRoomComponent implements OnInit {
     const { begin, end } = this.func.getTimestampByType(this.platform_y_val, 'year');
     this.http.get(this.apiConfig.urls.chart.platformMY, { room_id: this.cur_room_id, begin: begin, end: end })
       .subscribe((res: any) => {
-        if (res.code === 0) {
-          this.setPlatformYOptions(res.data);
-          this.platform_y_loading = false;
-          this.cd.detectChanges();
-        }
+        this.platform_y_loading = false;
+        this.setPlatformYOptions(res);
+        this.platform_y_loading = false;
+        this.cd.detectChanges();
       });
   }
 

@@ -4,63 +4,99 @@ const Controller = require('egg').Controller;
 
 class RoomController extends Controller {
     async list() {
-        const ctx = this.ctx;
-        const res = await ctx.service.room.list();
-        ctx.body = {
-            code: 0,
-            data: res
-        };
-        ctx.status = 200;
+        try {
+            const ctx = this.ctx;
+            const res = await ctx.service.room.list();
+            ctx.body = {
+                status: 0,
+                response: res
+            };
+        } catch (e) {
+            ctx.body = {
+                status: -1,
+                msg: e.message
+            }
+        }
     }
 
     async detail() {
-        const ctx = this.ctx;
-        const res = await ctx.service.room.detail(ctx.query);
-        ctx.body = {
-            code: 0,
-            data: res
-        };
-        ctx.status = 200;
+        try {
+            const ctx = this.ctx;
+            const res = await ctx.service.room.detail(ctx.query);
+            ctx.body = {
+                status: 0,
+                response: res
+            };
+        } catch (e) {
+            ctx.body = {
+                status: -1,
+                msg: e.message
+            }
+        }
     }
 
     async add() {
-        const ctx = this.ctx;
-        const res = await ctx.service.room.add(ctx.request.body);
-        ctx.body = {
-            code: 0,
-            data: res
-        };
-        ctx.status = 200;
+        try {
+            const ctx = this.ctx;
+            const res = await ctx.service.room.add(ctx.request.body);
+            ctx.body = {
+                status: 0,
+                response: res
+            };
+        } catch (e) {
+            ctx.body = {
+                status: -1,
+                msg: e.message
+            }
+        }
     }
 
     async edit() {
-        const ctx = this.ctx;
-        const res = await ctx.service.room.edit(ctx.request.body);
-        ctx.body = {
-            code: 0,
-            data: res
-        };
-        ctx.status = 200;
+        try {
+            const ctx = this.ctx;
+            const res = await ctx.service.room.edit(ctx.request.body);
+            ctx.body = {
+                status: 0,
+                response: res
+            };
+        } catch (e) {
+            ctx.body = {
+                status: -1,
+                msg: e.message
+            }
+        }
     }
 
     async hasOrder() {
-        const ctx = this.ctx;
-        const res = await ctx.service.room.hasOrder(ctx.query);
-        ctx.body = {
-            code: 0,
-            data: res
-        };
-        ctx.status = 200;
+        try {
+            const ctx = this.ctx;
+            const res = await ctx.service.room.hasOrder(ctx.query);
+            ctx.body = {
+                status: 0,
+                response: res
+            };
+        } catch (e) {
+            ctx.body = {
+                status: -1,
+                msg: e.message
+            }
+        }
     }
 
     async del() {
-        const ctx = this.ctx;
-        const res = await ctx.service.room.del(ctx.query);
-        ctx.body = {
-            code: 0,
-            data: res
-        };
-        ctx.status = 200;
+        try {
+            const ctx = this.ctx;
+            const res = await ctx.service.room.del(ctx.query);
+            ctx.body = {
+                status: 0,
+                response: res
+            };
+        } catch (e) {
+            ctx.body = {
+                status: -1,
+                msg: e.message
+            }
+        }
     }
 }
 

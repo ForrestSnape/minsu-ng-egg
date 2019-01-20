@@ -62,18 +62,14 @@ export class OrderAddComponent implements OnInit {
   getRooms() {
     this.http.get(this.apiConfig.urls.room.list)
       .subscribe((res: any) => {
-        if (res.code === 0) {
-          this.rooms = res.data;
-        }
+        this.rooms = res;
       });
   }
 
   getPlatforms() {
     this.http.get(this.apiConfig.urls.platform.list)
       .subscribe((res: any) => {
-        if (res.code === 0) {
-          this.platforms = res.data;
-        }
+        this.platforms = res;
       });
   }
 
@@ -130,15 +126,13 @@ export class OrderAddComponent implements OnInit {
     params.days = this.date_price.length;
     this.http.post(this.apiConfig.urls.order.add, params)
       .subscribe((res: any) => {
-        if (res.code === 0) {
-          if (res.data) {
-            this.msg.success('添加订单成功', { nzDuration: 2000 });
-            setTimeout(() => this.router.navigateByUrl(`/order/list`), 2500);
-          } else {
-            this.msg.warning('添加订单失败，您选择的日期内已有订单，请仔细核对');
-            this.submitting = false;
-          };
-        }
+        if (res) {
+          this.msg.success('添加订单成功', { nzDuration: 2000 });
+          setTimeout(() => this.router.navigateByUrl(`/order/list`), 2500);
+        } else {
+          this.msg.warning('添加订单失败，您选择的日期内已有订单，请仔细核对');
+          this.submitting = false;
+        };
       });
   }
 

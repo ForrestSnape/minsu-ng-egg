@@ -4,8 +4,9 @@ import { Injectable } from '@angular/core';
 @Injectable()
 export class ApiConfig {
     // 静态资源url路径
-    sourceAddr: string = 'http://localhost/nmgtsxz/';
-    apiAddr: string = 'http://127.0.0.1:5300';
+    // sourceAddr: string = 'http://localhost/nmgtsxz/';
+    apiAddr: string = 'http://47.101.172.5:5300';
+    // apiAddr: string = 'http://127.0.0.1:5300';
     urls: any = {};
 
     constructor() {

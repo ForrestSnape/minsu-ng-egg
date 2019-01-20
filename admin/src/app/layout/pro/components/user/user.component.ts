@@ -55,14 +55,12 @@ export class LayoutProWidgetUserComponent implements OnInit {
     this.cnOkLoading = true;
     this.http.post(this.apiConfig.urls.user.changeNickname, { nickname: this.nickname })
       .subscribe((res: any) => {
-        if (res.code === 0) {
-          if (res.data) {
-            this.msg.success('修改昵称成功');
-            this.settings.user.nickname = this.nickname;
-            this.cnOkLoading = false;
-            this.cnVisible = false;
-            this.cd.detectChanges();
-          }
+        if (res) {
+          this.msg.success('修改昵称成功');
+          this.settings.user.nickname = this.nickname;
+          this.cnOkLoading = false;
+          this.cnVisible = false;
+          this.cd.detectChanges();
         }
       })
   }
@@ -79,15 +77,13 @@ export class LayoutProWidgetUserComponent implements OnInit {
     this.cpOkLoading = true;
     this.http.post(this.apiConfig.urls.user.changePassword, { passwordOld: this.passwordOld, password: this.password })
       .subscribe((res: any) => {
-        if (res.code === 0) {
-          this.cpOkLoading = false;
-          if (res.data.status) {
-            this.msg.success(res.data.msg);
-            this.cpVisible = false;
-            this.cd.detectChanges();
-          } else {
-            this.msg.warning(res.data.msg);
-          }
+        this.cpOkLoading = false;
+        if (res.status) {
+          this.msg.success(res.msg);
+          this.cpVisible = false;
+          this.cd.detectChanges();
+        } else {
+          this.msg.warning(res.msg);
         }
       })
   }

@@ -116,18 +116,14 @@ export class OrderListComponent {
   getRooms() {
     this.http.get(this.apiConfig.urls.room.list)
       .subscribe((res: any) => {
-        if (res.code === 0) {
-          this.rooms = res.data;
-        }
+        this.rooms = res;
       });
   }
 
   getPlatforms() {
     this.http.get(this.apiConfig.urls.platform.list)
       .subscribe((res: any) => {
-        if (res.code === 0) {
-          this.platforms = res.data;
-        }
+        this.platforms = res;
       });
   }
 
@@ -146,11 +142,9 @@ export class OrderListComponent {
     this.http.get(this.apiConfig.urls.order.list, params)
       .subscribe((res: any) => {
         this.loading = false;
-        if (res.code === 0) {
-          this.orders = res.data.orders;
-          this.total = res.data.total;
-          this.cd.detectChanges();
-        }
+        this.orders = res.orders;
+        this.total = res.total;
+        this.cd.detectChanges();
       });
   }
 
@@ -211,15 +205,13 @@ export class OrderListComponent {
     this.loading = true;
     this.http.delete(this.apiConfig.urls.order.del, { id: id })
       .subscribe((res: any) => {
-        if (res.code === 0) {
-          if (res.data) {
-            this.msg.success('删除订单成功', { nzDuration: 2000 });
-            setTimeout(() => this.reloadListData(), 2500);
-          } else {
-            this.msg.warning('删除订单失败', { nzDuration: 2000 });
-            setTimeout(() => this.reloadListData(), 2500);
-          };
-        }
+        if (res) {
+          this.msg.success('删除订单成功', { nzDuration: 2000 });
+          setTimeout(() => this.reloadListData(), 2500);
+        } else {
+          this.msg.warning('删除订单失败', { nzDuration: 2000 });
+          setTimeout(() => this.reloadListData(), 2500);
+        };
       });
   }
 
@@ -230,13 +222,13 @@ export class OrderListComponent {
     this.loading = true;
     this.http.post(this.apiConfig.urls.order.batch, { ids: this.selectedRows, type: type })
       .subscribe((res: any) => {
-        if (res.code === 0) {
+        if (res) {
           this.selectedRows = [];
           this.msg.success(`批量${type_name}成功`, { nzDuration: 2000 });
           setTimeout(() => this.reloadListData(), 2500);
-        } else if (res.code === 1) {
+        } else {
           this.selectedRows = [];
-          this.msg.success(res.msg, { nzDuration: 2000 });
+          this.msg.warning(`批量${type_name}失败`, { nzDuration: 2000 });
           setTimeout(() => this.reloadListData(), 2500);
         }
       });

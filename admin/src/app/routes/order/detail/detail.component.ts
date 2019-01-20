@@ -49,16 +49,14 @@ export class OrderDetailComponent implements OnInit {
   getOrder() {
     this.http.get(this.apiConfig.urls.order.detail, { id: this.id })
       .subscribe((res: any) => {
-        if (res.code === 0) {
-          this.order = res.data;
-          this.order_date_price = this.order.order_date_prices;
-          // 评论星级
-          if (this.order.comment) {
-            this.stars = this.getStars(this.order.comment.star);
-          }
-          this.loading = false;
-          this.cd.detectChanges();
+        this.order = res;
+        this.order_date_price = this.order.order_date_prices;
+        // 评论星级
+        if (this.order.comment) {
+          this.stars = this.getStars(this.order.comment.star);
         }
+        this.loading = false;
+        this.cd.detectChanges();
       });
   }
 

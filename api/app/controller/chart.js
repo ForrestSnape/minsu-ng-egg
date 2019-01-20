@@ -5,73 +5,115 @@ const Controller = require('egg').Controller;
 class ChartController extends Controller {
 
     async orderM() {
-        const ctx = this.ctx;
-        const res = await ctx.service.chart.orderM(ctx.query);
-        ctx.body = {
-            code: 0,
-            data: res
-        };
-        ctx.status = 200;
+        try {
+            const ctx = this.ctx;
+            const res = await ctx.service.chart.orderM(ctx.query);
+            ctx.body = {
+                status: 0,
+                response: res
+            };
+        } catch (e) {
+            ctx.body = {
+                status: -1,
+                msg: e.message
+            }
+        }
     }
 
     async platformMY() {
-        const ctx = this.ctx;
-        const res = await ctx.service.chart.platformMY(ctx.query);
-        ctx.body = {
-            code: 0,
-            data: res
-        };
-        ctx.status = 200;
+        try {
+            const ctx = this.ctx;
+            const res = await ctx.service.chart.platformMY(ctx.query);
+            ctx.body = {
+                status: 0,
+                response: res
+            };
+        } catch (e) {
+            ctx.body = {
+                status: -1,
+                msg: e.message
+            }
+        }
     }
 
     async orderY() {
-        const ctx = this.ctx;
-        const res = await ctx.service.chart.orderY(ctx.query);
-        ctx.body = {
-            code: 0,
-            data: res
-        };
-        ctx.status = 200;
+        try {
+            const ctx = this.ctx;
+            const res = await ctx.service.chart.orderY(ctx.query);
+            ctx.body = {
+                status: 0,
+                response: res
+            };
+        } catch (e) {
+            ctx.body = {
+                status: -1,
+                msg: e.message
+            }
+        }
     }
 
     async profitR() {
-        const ctx = this.ctx;
-        const res = await ctx.service.chart.profitR(ctx.query);
-        ctx.body = {
-            code: 0,
-            data: res
-        };
-        ctx.status = 200;
+        try {
+            const ctx = this.ctx;
+            const res = await ctx.service.chart.profitR(ctx.query);
+            ctx.body = {
+                status: 0,
+                response: res
+            };
+        } catch (e) {
+            ctx.body = {
+                status: -1,
+                msg: e.message
+            }
+        }
     }
 
     async profitP() {
-        const ctx = this.ctx;
-        const res = await ctx.service.chart.profitP(ctx.query);
-        ctx.body = {
-            code: 0,
-            data: res
-        };
-        ctx.status = 200;
+        try {
+            const ctx = this.ctx;
+            const res = await ctx.service.chart.profitP(ctx.query);
+            ctx.body = {
+                status: 0,
+                response: res
+            };
+        } catch (e) {
+            ctx.body = {
+                status: -1,
+                msg: e.message
+            }
+        }
     }
 
     async roomPlatform() {
-        const ctx = this.ctx;
-        const res = await ctx.service.chart.roomPlatform(ctx.query);
-        ctx.body = {
-            code: 0,
-            data: res
-        };
-        ctx.status = 200;
+        try {
+            const ctx = this.ctx;
+            const res = await ctx.service.chart.roomPlatform(ctx.query);
+            ctx.body = {
+                status: 0,
+                response: res
+            };
+        } catch (e) {
+            ctx.body = {
+                status: -1,
+                msg: e.message
+            }
+        }
     }
 
     async roomOrder() {
-        const ctx = this.ctx;
-        const res = await ctx.service.chart.roomOrder(ctx.query);
-        ctx.body = {
-            code: 0,
-            data: res
-        };
-        ctx.status = 200;
+        try {
+            const ctx = this.ctx;
+            const res = await ctx.service.chart.roomOrder(ctx.query);
+            ctx.body = {
+                status: 0,
+                response: res
+            };
+        } catch (e) {
+            ctx.body = {
+                status: -1,
+                msg: e.message
+            }
+        }
     }
 }
 

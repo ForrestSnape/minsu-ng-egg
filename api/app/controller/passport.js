@@ -4,23 +4,35 @@ const Controller = require('egg').Controller;
 
 class PassportController extends Controller {
     async login() {
-        const ctx = this.ctx;
-        const check = await ctx.service.passport.login(ctx.request.body);
-        ctx.body = {
-            code: 0,
-            data: check
-        };
-        ctx.status = 200;
+        try {
+            const ctx = this.ctx;
+            const check = await ctx.service.passport.login(ctx.request.body);
+            ctx.body = {
+                status: 0,
+                response: check
+            };
+        } catch (e) {
+            ctx.body = {
+                status: -1,
+                msg: e.message
+            };
+        }
     }
 
     async register() {
-        const ctx = this.ctx;
-        const res = await ctx.service.passport.register(ctx.request.body);
-        ctx.body = {
-            code: 0,
-            data: res
-        };
-        ctx.status = 200;
+        try {
+            const ctx = this.ctx;
+            const res = await ctx.service.passport.register(ctx.request.body);
+            ctx.body = {
+                status: 0,
+                response: res
+            };
+        } catch (e) {
+            ctx.body = {
+                status: -1,
+                msg: e.message
+            };
+        }
     }
 }
 

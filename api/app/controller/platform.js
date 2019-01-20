@@ -4,13 +4,19 @@ const Controller = require('egg').Controller;
 
 class PlatformController extends Controller {
     async list() {
-        const ctx = this.ctx;
-        const res = await ctx.service.platform.list();
-        ctx.body = {
-            code: 0,
-            data: res
-        };
-        ctx.status = 200;
+        try {
+            const ctx = this.ctx;
+            const res = await ctx.service.platform.list();
+            ctx.body = {
+                status: 0,
+                response: res
+            };
+        } catch (e) {
+            ctx.body = {
+                status: -1,
+                msg: e.message
+            }
+        }
     }
 
 }

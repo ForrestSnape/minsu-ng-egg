@@ -59,11 +59,9 @@ export class ChartStatisticComponent implements OnInit {
     this.profit_r_loading = true;
     this.http.get(this.apiConfig.urls.chart.profitR, { year: this.profit_r_val.getFullYear() })
       .subscribe((res: any) => {
-        if (res.code === 0) {
-          this.setProfitROptions(res.data);
-          this.profit_r_loading = false;
-          this.cd.detectChanges();
-        }
+        this.setProfitROptions(res);
+        this.profit_r_loading = false;
+        this.cd.detectChanges();
       });
   }
 
@@ -102,11 +100,9 @@ export class ChartStatisticComponent implements OnInit {
     this.profit_p_loading = true;
     this.http.get(this.apiConfig.urls.chart.profitP, { year: this.profit_p_val.getFullYear() })
       .subscribe((res: any) => {
-        if (res.code === 0) {
-          this.setProfitPOptions(res.data);
-          this.profit_p_loading = false;
-          this.cd.detectChanges();
-        }
+        this.setProfitPOptions(res);
+        this.profit_p_loading = false;
+        this.cd.detectChanges();
       });
   }
 
@@ -159,10 +155,8 @@ export class ChartStatisticComponent implements OnInit {
     }
     this.http.get(this.apiConfig.urls.chart.roomPlatform, params)
       .subscribe((res: any) => {
-        if (res.code === 0) {
-          this.room_platform_data = res.data.data;
-          this.room_platform_columns = res.data.columns;
-        }
+        this.room_platform_data = res.data;
+        this.room_platform_columns = res.columns;
       })
   }
 
@@ -184,10 +178,8 @@ export class ChartStatisticComponent implements OnInit {
     }
     this.http.get(this.apiConfig.urls.chart.roomOrder, params)
       .subscribe((res: any) => {
-        if (res.code === 0) {
-          this.room_order_data = res.data.data;
-          this.room_order_columns = res.data.columns;
-        }
+        this.room_order_data = res.data;
+        this.room_order_columns = res.columns;
       })
   }
 
