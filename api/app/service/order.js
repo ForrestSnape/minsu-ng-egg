@@ -138,11 +138,11 @@ class OrderService extends Service {
     // 编辑订单
     async edit(params) {
         const ctx = this.ctx;
-        const check = await this.checkOrderForTime(params.room_id, {
-            begin: params.begin,
-            end: params.end
-        });
-        if (!check) return false;
+        // const check = await this.checkOrderForTime(params.room_id, {
+        //     begin: params.begin,
+        //     end: params.end
+        // });
+        // if (!check) return false;
         return await ctx.model.transaction(t => {
             // 修改订单表
             params.user_id = ctx.session.user_id;
